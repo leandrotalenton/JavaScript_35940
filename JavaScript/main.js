@@ -20,7 +20,7 @@ let stoneVills
 let carteraDeProduccion = []
 
 //calculo de aldeanos necesarios para mantener la produccion constante de unidades elegidas
-function calular(){
+function calularCantidadDeAldeanos(){
     foodVills = Math.ceil(totalFoodPerSecond / foodCollectionRate)
     woodVills = Math.ceil(totalWoodPerSecond  / woodCollectionRate)
     goldVills = Math.ceil(totalGoldPerSecond  / goldCollectionRate)
@@ -73,7 +73,7 @@ for(unidades of carteraDeProduccion){
 // document.write(`<br><br>Recursos requeridos por segundo: <br>food: ${totalFoodPerSecond} <br>wood: ${totalWoodPerSecond} <br>gold: ${totalGoldPerSecond} <br>stone: ${totalStonePerSecond}`)
 
 // se corre la formula calcular y se escriben los resultados
-calular()
+calularCantidadDeAldeanos()
 
 document.write(`<br><br>la cantidad minima de aldeanos necesarios para mantener la produccion constante de estas unidades es:<br>
 Aldeanos en comida ${foodVills} <br>
