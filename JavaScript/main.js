@@ -55,33 +55,61 @@ let input
 do{
     input = parseInt(prompt(`Agregue las unidades a producir (una por vez): 0: terminar, 1:Knight, 2:Archer, 3:Scout Cavalry, 4:Aldeano`))
     if (input === 1){
-        carteraDeProduccion.push(knight)
+        carteraDeProduccion.push(knight);
     } else if (input === 2){
-        carteraDeProduccion.push(archer)
+        carteraDeProduccion.push(archer);
     } else if (input === 3){
-        carteraDeProduccion.push(scoutCavalry)
+        carteraDeProduccion.push(scoutCavalry);
     } else if (input === 4){
-        carteraDeProduccion.push(villager)
+        carteraDeProduccion.push(villager);
     } 
 } while (input != 0)
 
-// se escribe una lista de unidades a producir y se suma su costo por recurso por segundo en las variables declaradas anteriormente
-document.write(`<b>Calculadora de recursos AoE2</b> <br><br>Las unidades a producir son: <br>`)
+
+
 
 for(unidades of carteraDeProduccion){
-    document.write(`${unidades.name}, `)
-    resourcesRquiredPerSecond.food += (unidades.foodCost / unidades.timeCost)
-    resourcesRquiredPerSecond.wood += (unidades.woodCost / unidades.timeCost)
-    resourcesRquiredPerSecond.gold += (unidades.goldCost / unidades.timeCost)
-    resourcesRquiredPerSecond.stone += (unidades.stoneCost / unidades.timeCost)
+/*     document.write(`${unidades.name}, `) */
+    resourcesRquiredPerSecond.food += (unidades.foodCost / unidades.timeCost);
+    resourcesRquiredPerSecond.wood += (unidades.woodCost / unidades.timeCost);
+    resourcesRquiredPerSecond.gold += (unidades.goldCost / unidades.timeCost);
+    resourcesRquiredPerSecond.stone += (unidades.stoneCost / unidades.timeCost);
 }
+
+// agregar el valor al input (eventualmente se reemplazaria por un event cuando cambian el numero o aprietan calcular o algo asi supongo)
+let qKnights = carteraDeProduccion.filter(unit=>unit.name == "knight");
+const cantidadKnights = document.querySelector(`#unidades__knight-q`);
+cantidadKnights.value = qKnights.length
+
+let qArcher = carteraDeProduccion.filter(unit=>unit.name == "archer");
+const cantidadArcher = document.querySelector(`#unidades__archer-q`);
+cantidadArcher.value = qArcher.length
+
+let qScout = carteraDeProduccion.filter(unit=>unit.name == "scoutCavalry");
+const cantidadscoutCavalry = document.querySelector(`#unidades__scout_cavalry-q`);
+cantidadscoutCavalry.value = qScout.length
+
+let qVillager = carteraDeProduccion.filter(unit=>unit.name == "villager");
+const cantidadvillager = document.querySelector(`#unidades__villager-q`);
+cantidadvillager.value = qVillager.length
 
 // se ejecuta el metodo calularCantidadDeAldeanos y se escriben los resultados
 villagerDistribution.calularCantidadDeAldeanos();
 
-document.write(`<br><br>la cantidad minima de aldeanos necesarios para mantener la produccion constante de estas unidades es:<br>
-Aldeanos en comida ${villagerDistribution.food} <br>
-Aldeanos en madera ${villagerDistribution.wood} <br>
-Aldeanos en oro ${villagerDistribution.gold} <br>
-Aldeanos en piedra ${villagerDistribution.stone}<br><br>
-Aldeanos totales requeridos: ${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}`)
+// se agregan los resultados al DOM
+const foodRequired = document.querySelectorAll(`.recursos__food-texto`)[0];
+foodRequired.innerHTML = (`Aldeanos en comida ${villagerDistribution.food}`);
+
+const woodRequired = document.querySelectorAll(`.recursos__wood-texto`)[0];
+woodRequired.innerHTML = (`Aldeanos en madera ${villagerDistribution.wood}`);
+
+const goldRequired = document.querySelectorAll(`.recursos__gold-texto`)[0];
+goldRequired.innerHTML = (`Aldeanos en oro ${villagerDistribution.gold}`);
+
+const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
+stoneRequired.innerHTML = (`Aldeanos en piedra ${villagerDistribution.stone}`);
+
+let aldeanosTotales = document.createElement("div");
+aldeanosTotales.textContent = (`Aldeanos totales requeridos: ${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}`)
+
+document.body.appendChild(aldeanosTotales);

@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid red; */
+}
+
+ul li{
+    text-decoration: none;
+    list-style: none;
+}
+
+.unidades{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 15px 0px;
+}
+
+.recursos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 15px 0px;
+}
+
+.recursos li{
+    display: flex;
+    margin: 3px 0px;
+}
+
