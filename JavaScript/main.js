@@ -51,11 +51,11 @@ let villagerDistribution = {
         villagerDistribution.stone = Math.ceil(resourcesRquiredPerSecond.stone  / collectionRates.stone);
     },
     mostrarCantidadDeAldeanos: function() {
-        foodRequired.innerHTML = (`Aldeanos en comida ${villagerDistribution.food}`);
-        woodRequired.innerHTML = (`Aldeanos en madera ${villagerDistribution.wood}`);
-        goldRequired.innerHTML = (`Aldeanos en oro ${villagerDistribution.gold}`);
-        stoneRequired.innerHTML = (`Aldeanos en piedra ${villagerDistribution.stone}`);
-        totalRequired.innerHTML = (`<br><b>Aldeanos totales requeridos ${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}</b>`);
+        foodRequired.innerHTML = (`${villagerDistribution.food}`);
+        woodRequired.innerHTML = (`${villagerDistribution.wood}`);
+        goldRequired.innerHTML = (`${villagerDistribution.gold}`);
+        stoneRequired.innerHTML = (`${villagerDistribution.stone}`);
+        totalRequired.innerHTML = (`<b>${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}</b>`);
     }
 }
 
