@@ -1,3 +1,9 @@
+const foodRequired = document.querySelectorAll(`.recursos__food-texto`)[0];
+const woodRequired = document.querySelectorAll(`.recursos__wood-texto`)[0];
+const goldRequired = document.querySelectorAll(`.recursos__gold-texto`)[0];
+const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
+const totalRequired = document.querySelectorAll(`.recursos__totales-texto`)[0];
+
 // objeto recoleccion estimada por segundo de recursos (DATO)
 let collectionRates = {
     food: 0.3383,
@@ -11,15 +17,27 @@ let collectionRates = {
     //     collectionRates.food = 0.4;
     // },
 }
+
 // objeto para almacenar requisitos de recursos por segundo
 let resourcesRquiredPerSecond = {
     food: 0,
     wood: 0,
     gold: 0,
     stone: 0,
+    calcularResourcesRquiredPerSecond: function(){
+        resourcesRquiredPerSecond.food = 0;
+        resourcesRquiredPerSecond.wood = 0;
+        resourcesRquiredPerSecond.gold = 0;
+        resourcesRquiredPerSecond.stone = 0;
+        for(const unit of productionPortfolio){
+            resourcesRquiredPerSecond.food += (unit.foodCost / unit.timeCost);
+            resourcesRquiredPerSecond.wood += (unit.woodCost / unit.timeCost);
+            resourcesRquiredPerSecond.gold += (unit.goldCost / unit.timeCost);
+            resourcesRquiredPerSecond.stone += (unit.stoneCost / unit.timeCost);
+        }
+    }
 }
-// declaro la cartera de produccion donde se van a agregar las opcciones elegidas de unidades
-let carteraDeProduccion = []
+
 // declaro variables que voy a utilizar en la funcion
 let villagerDistribution = {
     food: 0,
@@ -32,10 +50,37 @@ let villagerDistribution = {
         villagerDistribution.gold = Math.ceil(resourcesRquiredPerSecond.gold  / collectionRates.gold);
         villagerDistribution.stone = Math.ceil(resourcesRquiredPerSecond.stone  / collectionRates.stone);
     },
+    mostrarCantidadDeAldeanos: function() {
+        foodRequired.innerHTML = (`Aldeanos en comida ${villagerDistribution.food}`);
+        woodRequired.innerHTML = (`Aldeanos en madera ${villagerDistribution.wood}`);
+        goldRequired.innerHTML = (`Aldeanos en oro ${villagerDistribution.gold}`);
+        stoneRequired.innerHTML = (`Aldeanos en piedra ${villagerDistribution.stone}`);
+        totalRequired.innerHTML = (`<br><b>Aldeanos totales requeridos ${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}</b>`);
+    }
+}
+
+// declaro la cartera de produccion donde se van a agregar las opcciones elegidas de unidades
+let productionPortfolio = [];
+
+//funcion que actualiza el calculo de aldeanos y lo refleja en el HTML
+newProductionPortfolio = function(){
+    productionPortfolio = [];
+    for(unit of unitsList){
+        Q = document.querySelector(`.unidades__${unit.name}-q`);
+        if(Q.value === ""){
+            Q.value = 0;
+        }
+        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){
+            productionPortfolio.push(unit);
+        }
+    }
+    resourcesRquiredPerSecond.calcularResourcesRquiredPerSecond();
+    villagerDistribution.calularCantidadDeAldeanos();
+    villagerDistribution.mostrarCantidadDeAldeanos();
 }
 
 // constructor de unidades (DATO)
-class Unidad {
+class Unit {
     constructor(name, timeCost, foodCost, woodCost, goldCost, stoneCost){
         this.name = name;
         this.timeCost = timeCost;
@@ -43,73 +88,65 @@ class Unidad {
         this.woodCost = woodCost;
         this.goldCost = goldCost;
         this.stoneCost = stoneCost;
+        this.image = `./Resources/${name}.webp`
     }
 }
-const archer = new Unidad (`archer`,35,0,25,45,0);
-const knight = new Unidad (`knight`,30,60,0,75,0);
-const scoutCavalry = new Unidad (`scoutCavalry`,30,80,0,0,0);
-const villager = new Unidad (`villager`,25,50,0,0,0);
 
-// input de unidades deseadas a calcular
-let input
-do{
-    input = parseInt(prompt(`Agregue las unidades a producir (una por vez): 0: terminar, 1:Knight, 2:Archer, 3:Scout Cavalry, 4:Aldeano`))
-    if (input === 1){
-        carteraDeProduccion.push(knight);
-    } else if (input === 2){
-        carteraDeProduccion.push(archer);
-    } else if (input === 3){
-        carteraDeProduccion.push(scoutCavalry);
-    } else if (input === 4){
-        carteraDeProduccion.push(villager);
-    } 
-} while (input != 0)
+let unitsList = [
+    archer = new Unit (`archer`,35,0,25,45,0),
+    batteringRam = new Unit (`batteringRam`,36,0,160,75,0),
+    bombardCannon = new Unit (`bombardCannon`,57,0,225,225,0),
+    camel = new Unit (`camel`,22,55,0,60,0),
+    cavalryArcher = new Unit (`cavalryArcher`,34,0,40,70,0),
+    eagleWarrior = new Unit (`eagleWarrior`,35,25,0,50,0),
+    handCannoneer = new Unit (`handCannoneer`,34,45,0,50,0),
+    knight = new Unit (`knight`,30,60,0,75,0),
+    scoutCavalry = new Unit (`scoutCavalry`,30,80,0,0,0),
+    mangonel = new Unit (`mangonel`,46,0,160,135,0),
+    monk = new Unit (`monk`,51,0,0,100,0),
+    scorpion = new Unit (`scorpion`,30,0,75,75,0),
+    skirmisher = new Unit (`skirmisher`,22,25,35,0,0),
+    spearman = new Unit (`spearman`,22,35,25,0,0),
+    swordsman = new Unit (`swordsman`,22,60,0,20,0),
+    trebuchet = new Unit (`trebuchet`,50,0,200,200,0),
+    villager = new Unit (`villager`,25,50,0,0,0),
+    elephant = new Unit (`elephant`,24,120,0,70,0),
+    
+];
 
+// creacion del HTML con sus eventos
+for(const unit of unitsList){
+    const unitDiv = document.createElement(`div`);
+    unitDiv.classList.add(`unidades__${unit.name}`);
+    unitDiv.classList.add(`unidades__div`);
 
+    const unitImg = document.createElement(`img`);
+    unitImg.classList.add(`unidades__${unit.name}-imagen`);
+    unitImg.classList.add(`unidades__div-imagen`);
+    unitImg.src = unit.image;
+    unitImg.onclick = ()=>{
+        if(unitAmount.value === ""){
+            unitAmount.value = 0;
+        }
+        unitAmount.value = parseInt(unitAmount.value) + 1;
+        newProductionPortfolio()
+    };
 
+    const unitName = document.createElement(`p`);
+    unitName.innerText = unit.name;
 
-for(unidades of carteraDeProduccion){
-/*     document.write(`${unidades.name}, `) */
-    resourcesRquiredPerSecond.food += (unidades.foodCost / unidades.timeCost);
-    resourcesRquiredPerSecond.wood += (unidades.woodCost / unidades.timeCost);
-    resourcesRquiredPerSecond.gold += (unidades.goldCost / unidades.timeCost);
-    resourcesRquiredPerSecond.stone += (unidades.stoneCost / unidades.timeCost);
+    const unitAmount = document.createElement(`input`);
+    unitAmount.type = `number`
+    unitAmount.placeholder = `Insert amount`
+    unitAmount.classList.add(`unidades__${unit.name}-q`)
+
+    unitDiv.appendChild(unitImg);
+    unitDiv.appendChild(unitName);
+    unitDiv.appendChild(unitAmount);
+
+    document.querySelector(`.unidades`).appendChild(unitDiv);
+
+    unitAmount.addEventListener("change", newProductionPortfolio)
 }
 
-// agregar el valor al input (eventualmente se reemplazaria por un event cuando cambian el numero o aprietan calcular o algo asi supongo)
-let qKnights = carteraDeProduccion.filter(unit=>unit.name == "knight");
-const cantidadKnights = document.querySelector(`#unidades__knight-q`);
-cantidadKnights.value = qKnights.length
-
-let qArcher = carteraDeProduccion.filter(unit=>unit.name == "archer");
-const cantidadArcher = document.querySelector(`#unidades__archer-q`);
-cantidadArcher.value = qArcher.length
-
-let qScout = carteraDeProduccion.filter(unit=>unit.name == "scoutCavalry");
-const cantidadscoutCavalry = document.querySelector(`#unidades__scout_cavalry-q`);
-cantidadscoutCavalry.value = qScout.length
-
-let qVillager = carteraDeProduccion.filter(unit=>unit.name == "villager");
-const cantidadvillager = document.querySelector(`#unidades__villager-q`);
-cantidadvillager.value = qVillager.length
-
-// se ejecuta el metodo calularCantidadDeAldeanos y se escriben los resultados
-villagerDistribution.calularCantidadDeAldeanos();
-
-// se agregan los resultados al DOM
-const foodRequired = document.querySelectorAll(`.recursos__food-texto`)[0];
-foodRequired.innerHTML = (`Aldeanos en comida ${villagerDistribution.food}`);
-
-const woodRequired = document.querySelectorAll(`.recursos__wood-texto`)[0];
-woodRequired.innerHTML = (`Aldeanos en madera ${villagerDistribution.wood}`);
-
-const goldRequired = document.querySelectorAll(`.recursos__gold-texto`)[0];
-goldRequired.innerHTML = (`Aldeanos en oro ${villagerDistribution.gold}`);
-
-const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
-stoneRequired.innerHTML = (`Aldeanos en piedra ${villagerDistribution.stone}`);
-
-let aldeanosTotales = document.createElement("div");
-aldeanosTotales.textContent = (`Aldeanos totales requeridos: ${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}`)
-
-document.body.appendChild(aldeanosTotales);
+document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)

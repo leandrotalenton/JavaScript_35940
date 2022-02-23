@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     /* border: 1px solid red; */
 }
 
@@ -12,9 +13,21 @@ ul li{
 .unidades{
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    margin: 15px 0px;
+}
+
+.unidades__div{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100px;
+}
+
+.unidades__div-imagen{
+    height: 80px;
+    width: 80px;
+    margin: auto;
 }
 
 .recursos{

@@ -12,35 +12,9 @@
         <h1>Calculadora de economia AoE2</h1>
     </header>
     <main>
-        <div class="input">
-            <p>
-                ingrese las unidades a producir. En la parte inferior de la pantalla apareceran los aldeanos necesarios para mantenere la produccion constante de estas unidades
-            </p>
-            <div>
-                <ul class="unidades">
-                    <li class="unidades__knight">
-                        <img src="./Resources/knight.webp" alt="knight.webp" class="unidades__Knigh-imagen imagen">
-                        <p>Knight</p>
-                        <input type="number" name="" id="unidades__knight-q" placeholder="insert amount" value="">
-                    </li>
-                    <li class="unidades__archer">
-                        <img src="./Resources/archer.webp" alt="archer.webp" class="unidades__archer-imagen imagen">
-                        <p>Archer</p>
-                        <input type="number" name="" id="unidades__archer-q" placeholder="insert amount" value="">
-                    </li>
-                    <li class="unidades__scout">
-                        <img src="./Resources/scout_cavalry.webp" alt="scout_cavalry.webp" class="unidades__scout-imagen imagen">
-                        <p>Scout</p>
-                        <input type="number" name="" id="unidades__scout_cavalry-q" placeholder="insert amount" value="">
-                    </li>
-                    <li class="unidades__villager">
-                        <img src="./Resources/villager.webp" alt="villager.webp" class="unidades__villager-Imagen imagen">
-                        <p>Villager</p>
-                        <input type="number" name="" id="unidades__villager-q" placeholder="insert amount" value="">
-                </ul>
-            </div>
+        <div class="unidades"></div>
         <div class="output">
-            <p>la cantidad minima de aldeanos necesarios para mantener la produccion constante de estas unidades es:</p>
+            <p>La cantidad minima de aldeanos necesarios para mantener la produccion constante de estas unidades es:</p>
             <ul class="recursos">
                 <li class="recursos__food">
                     <img src="./Resources/food.webp" alt="food.webp" class="recursos__food-img">
@@ -57,6 +31,9 @@
                 <li class="recursos__stone">
                     <img src="./Resources/stone.webp" alt="stone.webp" class="recursos__stone-img">
                     <p class="recursos__stone-texto"></p>
+                </li>
+                <li class="recursos__totales">
+                    <p class="recursos__totales-texto"></p>
                 </li>
             </ul>
         </div>
