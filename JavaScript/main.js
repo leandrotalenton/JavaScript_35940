@@ -150,3 +150,42 @@ for(const unit of unitsList){
 }
 
 document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
+
+
+// se agregan las funcionalidades del localstorage (por ahora son de compromiso para entregar algo)
+/* guardar */
+let guardar = function(){
+    let stringProductionPortfolio = JSON.stringify(productionPortfolio);
+    localStorage.setItem(`stringProductionPortfolio`, stringProductionPortfolio)
+}
+document.querySelector(`.botonGuardar`).addEventListener(`click`, guardar);
+
+/* cargar */
+let cargar = function(){
+    productionPortfolio = JSON.parse(localStorage.getItem(`stringProductionPortfolio`))
+    for(unit of unitsList){
+        document.querySelector(`.unidades__${unit.name}-q`).value = productionPortfolio.filter(propiedadNombre => propiedadNombre.name == unit.name).length;
+        Q = document.querySelector(`.unidades__${unit.name}-q`);
+        if(Q.value === ""){
+            Q.value = 0;
+        }
+        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){
+            productionPortfolio.push(unit);
+        }
+    }
+    resourcesRquiredPerSecond.calcularResourcesRquiredPerSecond();
+    villagerDistribution.calularCantidadDeAldeanos();
+    villagerDistribution.mostrarCantidadDeAldeanos();
+}
+document.querySelector(`.botonCargar`).addEventListener(`click`, cargar);
+
+/* borrar */
+let borrar = function(){
+    for(unit of unitsList){
+        document.querySelector(`.unidades__${unit.name}-q`).value = 0
+    }
+    productionPortfolio = [];
+    // localStorage.clear();
+    newProductionPortfolio();
+}
+document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
