@@ -28,6 +28,11 @@ ul li{
     height: 80px;
     width: 80px;
     margin: auto;
+    filter: saturate(.15);
+}
+
+.activeImg{
+    filter: saturate(1.20);
 }
 
 .recursos{
@@ -58,7 +63,7 @@ ul li{
     position: relative;
     bottom: 0px;
     right: 0px;
-    left: 10px;
+    left: -21px;
     top: 26px;
 }
 .recursos__food-texto{
@@ -68,7 +73,7 @@ ul li{
     position: relative;
     bottom: 0px;
     right: 0px;
-    left: 76px;
+    left: 43px;
     top: 26px;
 }
 .recursos__gold-texto{
@@ -78,7 +83,7 @@ ul li{
     position: relative;
     bottom: 0px;
     right: 0px;
-    left: 142px;
+    left: 110px;
     top: 26px;
 }
 .recursos__stone-texto{
@@ -88,7 +93,7 @@ ul li{
     position: relative;
     bottom: 0px;
     right: 0px;
-    left: 207px;
+    left: 176px;
     top: 26px;
 }
 .recursos__totales-texto{
@@ -98,6 +103,6 @@ ul li{
     position: relative;
     bottom: 0px;
     right: 0px;
-    left: 274px;
+    left: 242px;
     top: 26px;
 }

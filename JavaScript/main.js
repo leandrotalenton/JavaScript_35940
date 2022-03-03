@@ -66,11 +66,16 @@ let productionPortfolio = [];
 newProductionPortfolio = function(){
     productionPortfolio = [];
     for(unit of unitsList){
-        Q = document.querySelector(`.unidades__${unit.name}-q`);
-        if(Q.value === ""){
+        let Q = document.querySelector(`.unidades__${unit.name}-q`);
+        if(Q.value === "" || parseInt(Q.value) < 0){ //arregla campos vacios o con Q <0
             Q.value = 0;
         }
-        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){
+        if(parseInt(Q.value) != 0){ //por defecto las imagenes estan oscuras, si Q es >0, se iluminan
+            document.querySelector(`.unidades__${unit.name}-imagen`).classList.add(`activeImg`)
+        } else {
+            document.querySelector(`.unidades__${unit.name}-imagen`).classList.remove(`activeImg`)
+        }
+        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){ //agrega al protfolio de produccion una cantidad de unidades igual a Q
             productionPortfolio.push(unit);
         }
     }
@@ -124,6 +129,7 @@ for(const unit of unitsList){
     unitImg.classList.add(`unidades__${unit.name}-imagen`);
     unitImg.classList.add(`unidades__div-imagen`);
     unitImg.src = unit.image;
+    unitImg.setAttribute(`title`,`${unit.name}`)
     unitImg.onclick = ()=>{
         if(unitAmount.value === ""){
             unitAmount.value = 0;
@@ -133,7 +139,7 @@ for(const unit of unitsList){
     };
 
     const unitName = document.createElement(`p`);
-    unitName.innerText = unit.name;
+    /* unitName.innerText = unit.name; */
 
     const unitAmount = document.createElement(`input`);
     unitAmount.type = `number`
