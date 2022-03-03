@@ -165,17 +165,8 @@ let cargar = function(){
     productionPortfolio = JSON.parse(localStorage.getItem(`stringProductionPortfolio`))
     for(unit of unitsList){
         document.querySelector(`.unidades__${unit.name}-q`).value = productionPortfolio.filter(propiedadNombre => propiedadNombre.name == unit.name).length;
-        Q = document.querySelector(`.unidades__${unit.name}-q`);
-        if(Q.value === ""){
-            Q.value = 0;
-        }
-        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){
-            productionPortfolio.push(unit);
-        }
     }
-    resourcesRquiredPerSecond.calcularResourcesRquiredPerSecond();
-    villagerDistribution.calularCantidadDeAldeanos();
-    villagerDistribution.mostrarCantidadDeAldeanos();
+    newProductionPortfolio()
 }
 document.querySelector(`.botonCargar`).addEventListener(`click`, cargar);
 
@@ -184,8 +175,6 @@ let borrar = function(){
     for(unit of unitsList){
         document.querySelector(`.unidades__${unit.name}-q`).value = 0
     }
-    productionPortfolio = [];
-    // localStorage.clear();
     newProductionPortfolio();
 }
 document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
