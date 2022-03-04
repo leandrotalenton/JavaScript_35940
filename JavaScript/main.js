@@ -4,19 +4,93 @@ const goldRequired = document.querySelectorAll(`.recursos__gold-texto`)[0];
 const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
 const totalRequired = document.querySelectorAll(`.recursos__totales-texto`)[0];
 
+
+let woodUpgrade
+let foodUpgrade
+let goldUpgrade
+let stoneUpgrade
+
+
 // objeto recoleccion estimada por segundo de recursos (DATO)
 let collectionRates = {
     food: 0.3383,
     wood: 0.41,
     gold: 0.38,
     stone: 0.36,
-    // researchWheelBarrowUpgrade: function(){
-    //     collectionRates.food = 0.38;
-    // },
-    // researchHandCartUpgrade: function(){
-    //     collectionRates.food = 0.4;
-    // },
+    woodEcoResearch: function(woodUpgrade){
+        if(woodUpgrade == `none`){
+            collectionRates.wood = 0.41;
+        } else if(woodUpgrade == `doubleBitAxe`){
+            collectionRates.wood = 0.49;
+        } else if(woodUpgrade == `bowSaw`){
+            collectionRates.wood = 0.59;
+        } else{
+            collectionRates.wood = 0.65;
+        }
+        newProductionPortfolio();
+    },
+    foodEcoResearch: function(foodUpgrade){
+        if(foodUpgrade == `none`){
+            collectionRates.food = 0.3383;
+        } else if(foodUpgrade == `heavyPlow`){
+            collectionRates.food = 0.35;
+        } else if(foodUpgrade == `wheelBarrow`){
+            collectionRates.food = 0.39;
+        } else{
+            collectionRates.food = 0.40;
+        }
+        newProductionPortfolio();
+    },
+    goldEcoResearch: function(goldUpgrade){
+        if(goldUpgrade == `none`){
+            collectionRates.gold = 0.38;
+        } else if(goldUpgrade == `goldMining`){
+            collectionRates.gold = 0.44;
+        } else{
+            collectionRates.gold = 0.50;
+        }
+        newProductionPortfolio();
+    },
+    stoneEcoResearch: function(stoneUpgrade){
+        if(stoneUpgrade == `none`){
+            collectionRates.stone = 0.36;
+        } else if(stoneUpgrade == `stoneMining`){
+            collectionRates.stone = 0.41;
+        } else{
+            collectionRates.stone = 0.48;
+        }
+        newProductionPortfolio();
+    },
 }
+
+document.querySelector(`.mejorasEconomicas__madera-img`).addEventListener(`click`,() => {
+    document.querySelector(`.mejorasEconomicas__madera-select`).selectedIndex += 1
+    woodUpgrade = document.querySelector(`.mejorasEconomicas__madera-select`).selectedOptions[0].value;
+    collectionRates.woodEcoResearch(woodUpgrade);
+    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodUpgrade}.webp`)
+})
+
+/* document.querySelector(`.mejorasEconomicas__madera-select`).addEventListener(`change`,() => {
+    woodUpgrade = document.querySelector(`.mejorasEconomicas__madera-select`).selectedOptions[0].value;
+    collectionRates.woodEcoResearch(woodUpgrade);
+    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodUpgrade}.webp`)
+}); */
+document.querySelector(`.mejorasEconomicas__comida-select`).addEventListener(`change`,() => {
+    foodUpgrade = document.querySelector(`.mejorasEconomicas__comida-select`).selectedOptions[0].value;
+    collectionRates.foodEcoResearch(foodUpgrade);
+    document.querySelector(`.mejorasEconomicas__comida-img`).setAttribute(`src`,`./Resources/food${foodUpgrade}.webp`)
+});
+document.querySelector(`.mejorasEconomicas__oro-select`).addEventListener(`change`,() => {
+    goldUpgrade = document.querySelector(`.mejorasEconomicas__oro-select`).selectedOptions[0].value;
+    collectionRates.goldEcoResearch(goldUpgrade);
+    document.querySelector(`.mejorasEconomicas__oro-img`).setAttribute(`src`,`./Resources/gold${goldUpgrade}.webp`)
+});
+document.querySelector(`.mejorasEconomicas__piedra-select`).addEventListener(`change`,() => {
+    stoneUpgrade = document.querySelector(`.mejorasEconomicas__piedra-select`).selectedOptions[0].value;
+    collectionRates.stoneEcoResearch(stoneUpgrade);
+    document.querySelector(`.mejorasEconomicas__piedra-img`).setAttribute(`src`,`./Resources/stone${stoneUpgrade}.webp`)
+});
+
 
 // objeto para almacenar requisitos de recursos por segundo
 let resourcesRquiredPerSecond = {

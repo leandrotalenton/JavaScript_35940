@@ -28,7 +28,7 @@ ul li{
     height: 80px;
     width: 80px;
     margin: auto;
-    filter: saturate(.15);
+    filter: brightness(.5);
 }
 
 .activeImg{
@@ -105,4 +105,9 @@ ul li{
     right: 0px;
     left: 242px;
     top: 26px;
+}
+
+.mejorasEconomicas{
+    display: flex;
+    flex-direction: row;
 }
