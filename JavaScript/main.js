@@ -4,92 +4,99 @@ const goldRequired = document.querySelectorAll(`.recursos__gold-texto`)[0];
 const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
 const totalRequired = document.querySelectorAll(`.recursos__totales-texto`)[0];
 
+// mejoras economicas (afectan a la recoleccion estimada de recursos por segundo)
+class EcoUpgrade {
+    constructor(id, resource, name, rate){
+        this.id = id;
+        this.resource = resource;
+        this.name = name;
+        this.rate = rate;
+        this.img = `./Resources/${resource}${id}.webp`;
+    }
+}
+const allEcoUpgrades = [
+    new EcoUpgrade (0,`food`,`None`,0.3383),
+    new EcoUpgrade (1,`food`,`Double Bit Axe`,0.35),
+    new EcoUpgrade (2,`food`,`Bow Saw`,0.39),
+    new EcoUpgrade (3,`food`,`Two Man Saw`,0.40),
+    new EcoUpgrade (0,`wood`,`None`,0.41),
+    new EcoUpgrade (1,`wood`,`Double Bit Axe`,0.49),
+    new EcoUpgrade (2,`wood`,`Bow Saw`,0.59),
+    new EcoUpgrade (3,`wood`,`Two Man Saw`,0.65),
+    new EcoUpgrade (0,`gold`,`None`,0.38),
+    new EcoUpgrade (1,`gold`,`Gold Mining`,0.44),
+    new EcoUpgrade (2,`gold`,`Gold Shaft Mining`,0.50),
+    new EcoUpgrade (0,`stone`,`None`,0.36),
+    new EcoUpgrade (1,`stone`,`Stone Mining`,0.41),
+    new EcoUpgrade (2,`stone`,`Stone Shaft Mining`,0.48),
+];
 
-let woodUpgrade
-let foodUpgrade
-let goldUpgrade
-let stoneUpgrade
-
-
-// objeto recoleccion estimada por segundo de recursos (DATO)
-let collectionRates = {
+// collection rates, formulas para modificarlas y sus variables necesarias
+const collectionRates = {
     food: 0.3383,
     wood: 0.41,
     gold: 0.38,
-    stone: 0.36,
-    woodEcoResearch: function(woodUpgrade){
-        if(woodUpgrade == `none`){
-            collectionRates.wood = 0.41;
-        } else if(woodUpgrade == `doubleBitAxe`){
-            collectionRates.wood = 0.49;
-        } else if(woodUpgrade == `bowSaw`){
-            collectionRates.wood = 0.59;
-        } else{
-            collectionRates.wood = 0.65;
-        }
-        newProductionPortfolio();
-    },
-    foodEcoResearch: function(foodUpgrade){
-        if(foodUpgrade == `none`){
-            collectionRates.food = 0.3383;
-        } else if(foodUpgrade == `heavyPlow`){
-            collectionRates.food = 0.35;
-        } else if(foodUpgrade == `wheelBarrow`){
-            collectionRates.food = 0.39;
-        } else{
-            collectionRates.food = 0.40;
-        }
-        newProductionPortfolio();
-    },
-    goldEcoResearch: function(goldUpgrade){
-        if(goldUpgrade == `none`){
-            collectionRates.gold = 0.38;
-        } else if(goldUpgrade == `goldMining`){
-            collectionRates.gold = 0.44;
-        } else{
-            collectionRates.gold = 0.50;
-        }
-        newProductionPortfolio();
-    },
-    stoneEcoResearch: function(stoneUpgrade){
-        if(stoneUpgrade == `none`){
-            collectionRates.stone = 0.36;
-        } else if(stoneUpgrade == `stoneMining`){
-            collectionRates.stone = 0.41;
-        } else{
-            collectionRates.stone = 0.48;
-        }
-        newProductionPortfolio();
-    },
+    stone: 0.36
 }
 
-document.querySelector(`.mejorasEconomicas__madera-img`).addEventListener(`click`,() => {
-    document.querySelector(`.mejorasEconomicas__madera-select`).selectedIndex += 1
-    woodUpgrade = document.querySelector(`.mejorasEconomicas__madera-select`).selectedOptions[0].value;
-    collectionRates.woodEcoResearch(woodUpgrade);
-    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodUpgrade}.webp`)
-})
+let foodEcoUpgrade = 1
+let woodEcoUpgrade = 1
+let goldEcoUpgrade = 1
+let stoneEcoUpgrade = 1
 
-/* document.querySelector(`.mejorasEconomicas__madera-select`).addEventListener(`change`,() => {
-    woodUpgrade = document.querySelector(`.mejorasEconomicas__madera-select`).selectedOptions[0].value;
-    collectionRates.woodEcoResearch(woodUpgrade);
-    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodUpgrade}.webp`)
-}); */
-document.querySelector(`.mejorasEconomicas__comida-select`).addEventListener(`change`,() => {
-    foodUpgrade = document.querySelector(`.mejorasEconomicas__comida-select`).selectedOptions[0].value;
-    collectionRates.foodEcoResearch(foodUpgrade);
-    document.querySelector(`.mejorasEconomicas__comida-img`).setAttribute(`src`,`./Resources/food${foodUpgrade}.webp`)
-});
-document.querySelector(`.mejorasEconomicas__oro-select`).addEventListener(`change`,() => {
-    goldUpgrade = document.querySelector(`.mejorasEconomicas__oro-select`).selectedOptions[0].value;
-    collectionRates.goldEcoResearch(goldUpgrade);
-    document.querySelector(`.mejorasEconomicas__oro-img`).setAttribute(`src`,`./Resources/gold${goldUpgrade}.webp`)
-});
-document.querySelector(`.mejorasEconomicas__piedra-select`).addEventListener(`change`,() => {
-    stoneUpgrade = document.querySelector(`.mejorasEconomicas__piedra-select`).selectedOptions[0].value;
-    collectionRates.stoneEcoResearch(stoneUpgrade);
-    document.querySelector(`.mejorasEconomicas__piedra-img`).setAttribute(`src`,`./Resources/stone${stoneUpgrade}.webp`)
-});
+aumentarFood = function(){
+    collectionRates.food = allEcoUpgrades.filter(I => I.resource === `food`)[foodEcoUpgrade].rate;
+    if(foodEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `food`).length-1){
+        foodEcoUpgrade = 0;
+    } else {
+        foodEcoUpgrade += 1
+    }
+    newProductionPortfolio()
+}
+aumentarWood = function(){
+    collectionRates.wood = allEcoUpgrades.filter(I => I.resource === `wood`)[woodEcoUpgrade].rate;
+    if(woodEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `wood`).length-1){
+        woodEcoUpgrade = 0;
+    } else {
+        woodEcoUpgrade += 1
+    }
+    newProductionPortfolio()
+}
+aumentarGold = function(){
+    collectionRates.gold = allEcoUpgrades.filter(I => I.resource === `gold`)[goldEcoUpgrade].rate;
+    if(goldEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `gold`).length-1){
+        goldEcoUpgrade = 0;
+    } else {
+        goldEcoUpgrade += 1
+    }
+    newProductionPortfolio()
+}
+aumentarStone = function(){
+    collectionRates.stone = allEcoUpgrades.filter(I => I.resource === `stone`)[stoneEcoUpgrade].rate;
+    if(stoneEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `stone`).length-1){
+        stoneEcoUpgrade = 0;
+    } else {
+        stoneEcoUpgrade += 1
+    }
+    newProductionPortfolio()
+}
+
+document.querySelector(`.mejorasEconomicas__comida-img`).addEventListener(`click`,() => {
+    document.querySelector(`.mejorasEconomicas__comida-img`).setAttribute(`src`,`./Resources/food${foodEcoUpgrade}.webp`)
+    aumentarFood()
+})
+document.querySelector(`.mejorasEconomicas__madera-img`).addEventListener(`click`,() => {
+    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodEcoUpgrade}.webp`)
+    aumentarWood()
+})
+document.querySelector(`.mejorasEconomicas__oro-img`).addEventListener(`click`,() => {
+    document.querySelector(`.mejorasEconomicas__oro-img`).setAttribute(`src`,`./Resources/gold${goldEcoUpgrade}.webp`)
+    aumentarGold()
+})
+document.querySelector(`.mejorasEconomicas__piedra-img`).addEventListener(`click`,() => {
+    document.querySelector(`.mejorasEconomicas__piedra-img`).setAttribute(`src`,`./Resources/stone${stoneEcoUpgrade}.webp`)
+    aumentarStone()
+})
 
 
 // objeto para almacenar requisitos de recursos por segundo
