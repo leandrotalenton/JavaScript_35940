@@ -16,9 +16,9 @@ class EcoUpgrade {
 }
 const allEcoUpgrades = [
     new EcoUpgrade (0,`food`,`None`,0.3383),
-    new EcoUpgrade (1,`food`,`Double Bit Axe`,0.35),
-    new EcoUpgrade (2,`food`,`Bow Saw`,0.39),
-    new EcoUpgrade (3,`food`,`Two Man Saw`,0.40),
+    new EcoUpgrade (1,`food`,`Heavy Plow`,0.35),
+    new EcoUpgrade (2,`food`,`Wheel Barrow`,0.39),
+    new EcoUpgrade (3,`food`,`Hand Cart`,0.40),
     new EcoUpgrade (0,`wood`,`None`,0.41),
     new EcoUpgrade (1,`wood`,`Double Bit Axe`,0.49),
     new EcoUpgrade (2,`wood`,`Bow Saw`,0.59),
