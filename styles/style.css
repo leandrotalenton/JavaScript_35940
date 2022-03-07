@@ -110,4 +110,15 @@ ul li{
 .mejorasEconomicas{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.mejorasEconomicas__mejora{
+    width: 100px;
+    margin: 5px;
+}
+
+.mejorasEconomicas__mejora-img{
+    margin: 0px 10px;
+    vertical-align: middle
 }

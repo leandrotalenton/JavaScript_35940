@@ -193,11 +193,10 @@ let unitsList = [
     scorpion = new Unit (`scorpion`,30,0,75,75,0),
     skirmisher = new Unit (`skirmisher`,22,25,35,0,0),
     spearman = new Unit (`spearman`,22,35,25,0,0),
-    swordsman = new Unit (`swordsman`,22,60,0,20,0),
+    militia = new Unit (`militia`,22,60,0,20,0),
     trebuchet = new Unit (`trebuchet`,50,0,200,200,0),
     villager = new Unit (`villager`,25,50,0,0,0),
     elephant = new Unit (`elephant`,24,120,0,70,0),
-    
 ];
 
 // creacion del HTML con sus eventos
@@ -220,7 +219,6 @@ for(const unit of unitsList){
     };
 
     const unitName = document.createElement(`p`);
-    /* unitName.innerText = unit.name; */
 
     const unitAmount = document.createElement(`input`);
     unitAmount.type = `number`
@@ -240,14 +238,12 @@ document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
 
 
 // se agregan las funcionalidades del localstorage (por ahora son de compromiso para entregar algo)
-/* guardar */
 let guardar = function(){
     let stringProductionPortfolio = JSON.stringify(productionPortfolio);
     localStorage.setItem(`stringProductionPortfolio`, stringProductionPortfolio)
 }
 document.querySelector(`.botonGuardar`).addEventListener(`click`, guardar);
 
-/* cargar */
 let cargar = function(){
     productionPortfolio = JSON.parse(localStorage.getItem(`stringProductionPortfolio`))
     for(unit of unitsList){
@@ -257,7 +253,6 @@ let cargar = function(){
 }
 document.querySelector(`.botonCargar`).addEventListener(`click`, cargar);
 
-/* borrar */
 let borrar = function(){
     for(unit of unitsList){
         document.querySelector(`.unidades__${unit.name}-q`).value = 0
