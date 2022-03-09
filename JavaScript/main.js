@@ -112,6 +112,8 @@ let villagerDistribution = {
 
 // declaro la cartera de produccion donde se van a agregar las opcciones elegidas de unidades
 let productionPortfolio = [];
+let productionPortfolioNames = [];
+let productionPortfolioNamesNoRepeat = [];
 
 //funcion que actualiza el calculo de aldeanos y lo refleja en el HTML
 newProductionPortfolio = function(){
@@ -129,6 +131,12 @@ newProductionPortfolio = function(){
     resourcesRquiredPerSecond.calculateResourcesRquiredPerSecond();
     villagerDistribution.calularCantidadDeAldeanos();
     villagerDistribution.mostrarCantidadDeAldeanos();
+
+    productionPortfolioNames = []; // se vacia el productionPortfolioNames, y se recarga solo con los nombres de las unidades
+    for(i in productionPortfolio){
+        productionPortfolioNames.push(productionPortfolio[i].name);
+    }
+    productionPortfolioNamesNoRepeat = productionPortfolioNames.filter((item, pos) => productionPortfolioNames.indexOf(item) == pos).sort() // se iguala productionPortfolioNamesNoRepeat a un array resultante de filtrarle los repetidos a productionPortfolioNames
 }
 
 // constructor de unidades (DATO)
@@ -200,6 +208,15 @@ document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
 let guardar = function(){
     let stringProductionPortfolio = JSON.stringify(productionPortfolio);
     localStorage.setItem(`stringProductionPortfolio`, stringProductionPortfolio)
+    Toastify({
+        text: "Seleccion de unidades guardada",
+        duration: 1000,
+        gravity: "bottom",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 0 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+    }).showToast();
 }
 document.querySelector(`.botonGuardar`).addEventListener(`click`, guardar);
 
@@ -209,6 +226,15 @@ let cargar = function(){
         document.querySelector(`.unidades__${unit.name}-q`).value = productionPortfolio.filter(propiedadNombre => propiedadNombre.name == unit.name).length;
     }
     newProductionPortfolio()
+    Toastify({
+        text: "Seleccion de unidades cargada",
+        duration: 1000,
+        gravity: "bottom",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 0 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+    }).showToast();
 }
 document.querySelector(`.botonCargar`).addEventListener(`click`, cargar);
 
@@ -217,5 +243,23 @@ let borrar = function(){
         document.querySelector(`.unidades__${unit.name}-q`).value = 0
     }
     newProductionPortfolio();
+    Toastify({
+        text: "Seleccion de unidades borrada",
+        duration: 1000,
+        gravity: "bottom",
+        offset: {
+          x: 0, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+          y: 0 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+        },
+    }).showToast();
 }
 document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
+
+// destructuring
+
+let noRepeat = [];
+asd = function(){
+    for(let i in productionPortfolio){
+        i.name = [...noRepeat];
+    }
+}
