@@ -1,0 +1,16 @@
+[
+    {"id":0,"resource":"food","name":"None","rate":0.3383,"img":"./Resources/food0.webp"},
+    {"id":1,"resource":"food","name":"Heavy Plow","rate":0.35,"img":"./Resources/food1.webp"},
+    {"id":2,"resource":"food","name":"Wheel Barrow","rate":0.39,"img":"./Resources/food2.webp"},
+    {"id":3,"resource":"food","name":"Hand Cart","rate":0.4,"img":"./Resources/food3.webp"},
+    {"id":0,"resource":"wood","name":"None","rate":0.41,"img":"./Resources/wood0.webp"},
+    {"id":1,"resource":"wood","name":"Double Bit Axe","rate":0.49,"img":"./Resources/wood1.webp"},
+    {"id":2,"resource":"wood","name":"Bow Saw","rate":0.59,"img":"./Resources/wood2.webp"},
+    {"id":3,"resource":"wood","name":"Two Man Saw","rate":0.65,"img":"./Resources/wood3.webp"},
+    {"id":0,"resource":"gold","name":"None","rate":0.38,"img":"./Resources/gold0.webp"},
+    {"id":1,"resource":"gold","name":"Gold Mining","rate":0.44,"img":"./Resources/gold1.webp"},
+    {"id":2,"resource":"gold","name":"Gold Shaft Mining","rate":0.5,"img":"./Resources/gold2.webp"},
+    {"id":0,"resource":"stone","name":"None","rate":0.36,"img":"./Resources/stone0.webp"},
+    {"id":1,"resource":"stone","name":"Stone Mining","rate":0.41,"img":"./Resources/stone1.webp"},
+    {"id":2,"resource":"stone","name":"Stone Shaft Mining","rate":0.48,"img":"./Resources/stone2.webp"}
+]

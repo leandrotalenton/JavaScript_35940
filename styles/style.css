@@ -21,7 +21,7 @@ ul li{
     display: flex;
     flex-direction: column;
     margin: 5px;
-    width: 100px;
+    width: 80px;
 }
 
 .unidades__div-imagen{
@@ -107,18 +107,38 @@ ul li{
     top: 26px;
 }
 
-.mejorasEconomicas{
+.ecoUpgrades{
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 
-.mejorasEconomicas__mejora{
-    width: 100px;
+.divRecurso-mejoras{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: 10px;
+    gap: 0 2px
+}
+
+.divMejora{
+    height: 15px;
+    width: 1fr;
+    background-color: rgb(32, 65, 35);
+}
+
+.divMejoraActiva{
+    background-color: rgb(59, 112, 54);
+}
+
+.divRecurso{
+    height: 84px;
     margin: 5px;
+    margin-bottom: 20px;
+    width: 80px;
 }
 
-.mejorasEconomicas__mejora-img{
-    margin: 0px 10px;
-    vertical-align: middle
+.divRecurso-img{
+    height: 80px;
+    width: 80px;
+    margin-bottom: 1px;
 }

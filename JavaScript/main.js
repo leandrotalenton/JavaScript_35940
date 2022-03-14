@@ -5,6 +5,7 @@ const stoneRequired = document.querySelectorAll(`.recursos__stone-texto`)[0];
 const totalRequired = document.querySelectorAll(`.recursos__totales-texto`)[0];
 
 // mejoras economicas (afectan a la recoleccion estimada de recursos por segundo)
+
 class EcoUpgrade {
     constructor(id, resource, name, rate){
         this.id = id;
@@ -31,7 +32,26 @@ const allEcoUpgrades = [
     new EcoUpgrade (2,`stone`,`Stone Shaft Mining`,0.48),
 ];
 
-// collection rates, niveles de mejora y formulas para modificarlas:
+/* const funcionAllEcoUpgrades = ()=>{
+    fetch(`./JavaScript/all_eco_upgrades.json`)
+    .then((respuesta)=>{
+        console.log(respuesta) // response basic, status 200... etc
+        return respuesta.json();
+    })
+    .then((datos)=>{
+        console.log(datos) // contenido de mi file JSON
+        allEcoUpgrades = datos
+        
+    })
+    .catch((err)=>{
+        console.log(err) // <-- si algo sale muuy mal se va por aca.
+    })
+} 
+
+funcionAllEcoUpgrades()
+*/
+
+// collection rates actuales:
 const collectionRates = {
     food: 0.3383,
     wood: 0.41,
@@ -39,35 +59,61 @@ const collectionRates = {
     stone: 0.36
 }
 
-let foodEcoUpgrade = 1
-let woodEcoUpgrade = 1
-let goldEcoUpgrade = 1
-let stoneEcoUpgrade = 1
+// console.log(collectionRates[`food`])
 
-document.querySelector(`.mejorasEconomicas__comida-img`).addEventListener(`click`,() => { // si clickeo la imagen hace las 3 siguientes acciones:
-    document.querySelector(`.mejorasEconomicas__comida-img`).setAttribute(`src`,`./Resources/food${foodEcoUpgrade}.webp`) //cambia el atributo de origen de la imagen
-    collectionRates.food = allEcoUpgrades.filter(I => I.resource === `food`)[foodEcoUpgrade].rate; // reemplaza el valor de recoleccion de comida por el de la enesima mejora de comida del array de mejoras
-    foodEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `food`).length-1 ? foodEcoUpgrade = 0 : foodEcoUpgrade += 1; // aumenta el numero del tracker de mejoras y si estaba en su maximo permitido lo resetea
-    newProductionPortfolio()
-});
-document.querySelector(`.mejorasEconomicas__madera-img`).addEventListener(`click`,() => {
-    document.querySelector(`.mejorasEconomicas__madera-img`).setAttribute(`src`,`./Resources/wood${woodEcoUpgrade}.webp`)
-    collectionRates.wood = allEcoUpgrades.filter(I => I.resource === `wood`)[woodEcoUpgrade].rate;
-    woodEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `wood`).length-1? woodEcoUpgrade = 0 : woodEcoUpgrade += 1;
-    newProductionPortfolio()
-});
-document.querySelector(`.mejorasEconomicas__oro-img`).addEventListener(`click`,() => {
-    document.querySelector(`.mejorasEconomicas__oro-img`).setAttribute(`src`,`./Resources/gold${goldEcoUpgrade}.webp`)
-    collectionRates.gold = allEcoUpgrades.filter(I => I.resource === `gold`)[goldEcoUpgrade].rate;
-    goldEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `gold`).length-1 ? goldEcoUpgrade = 0 : goldEcoUpgrade += 1;
-    newProductionPortfolio()
-});
-document.querySelector(`.mejorasEconomicas__piedra-img`).addEventListener(`click`,() => {
-    document.querySelector(`.mejorasEconomicas__piedra-img`).setAttribute(`src`,`./Resources/stone${stoneEcoUpgrade}.webp`)
-    collectionRates.stone = allEcoUpgrades.filter(I => I.resource === `stone`)[stoneEcoUpgrade].rate;
-    stoneEcoUpgrade === allEcoUpgrades.filter(I => I.resource === `stone`).length-1 ? stoneEcoUpgrade = 0 : stoneEcoUpgrade += 1;
-    newProductionPortfolio()
-});
+let ecoUpgrades = [ // [recurso, mejora maxima, mejora actual]
+    [`wood`,allEcoUpgrades.filter(I => I.resource === `wood`).length-1 /*3*/ ,0],
+    [`food`,allEcoUpgrades.filter(I => I.resource === `food`).length-1 /*3*/ ,0],
+    [`gold`,allEcoUpgrades.filter(I => I.resource === `gold`).length-1 /*2*/ ,0],
+    [`stone`,allEcoUpgrades.filter(I => I.resource === `stone`).length-1 /*2*/ ,0]
+]; 
+
+for(let r of ecoUpgrades){
+    const divRecurso = document.createElement(`div`);
+    divRecurso.classList.add(`divRecurso-${r[0]}`);
+    divRecurso.classList.add(`divRecurso`);
+
+    const imgRecursoImg = document.createElement(`img`);
+    imgRecursoImg.classList.add(`divRecurso-${r[0]}-img`);
+    imgRecursoImg.classList.add(`divRecurso-img`);
+    imgRecursoImg.setAttribute(`src`,`./Resources/${r[0]}0.webp`)
+    
+    const divRecursoMejoras = document.createElement(`div`);
+    divRecursoMejoras.classList.add(`divRecurso-${r[0]}-mejoras`);
+    divRecursoMejoras.classList.add(`divRecurso-mejoras`);
+
+    divRecurso.appendChild(imgRecursoImg);
+    divRecurso.appendChild(divRecursoMejoras);
+    document.querySelector(`.ecoUpgrades`).appendChild(divRecurso);
+
+    for(let i=0; i<r[1]; i+=1){
+        const divMejora = document.createElement(`div`);
+        divMejora.classList.add(`divMejora-${r[0]}`);
+        divMejora.classList.add(`divMejora`);
+        divMejora.setAttribute(`value`,i+1)
+
+        document.querySelector(`.divRecurso-${r[0]}-mejoras`).appendChild(divMejora);
+    }
+
+    document.querySelector(`.divRecurso-${r[0]}`).addEventListener(`click`,()=>{
+        let indiceBuscado = ecoUpgrades.indexOf(ecoUpgrades.find(i => i[0] == r[0])); //indice de la mejora estoy haciendo en esta iteracion
+        (ecoUpgrades[indiceBuscado][2] == ecoUpgrades[indiceBuscado][1]) && (ecoUpgrades[indiceBuscado][2] = -1);
+        ecoUpgrades[indiceBuscado][2] = ecoUpgrades[indiceBuscado][2] + 1;
+        
+        for(let div of document.querySelectorAll(`.divMejora-${r[0]}`)){
+            if(ecoUpgrades[indiceBuscado][2] >=div.getAttribute(`value`) ){
+                div.classList.add(`divMejoraActiva`);
+            } else div.classList.remove(`divMejoraActiva`);
+        };
+
+        collectionRates[ecoUpgrades[indiceBuscado][0]]=allEcoUpgrades.filter(I => I.resource === ecoUpgrades[indiceBuscado][0])[ecoUpgrades[indiceBuscado][2]].rate; // cambia el valor del recurso correspondiente en el array "collectionRates" por el de la mejora activa
+    
+        document.querySelector(`.divRecurso-${r[0]}-img`).setAttribute(`src`,`./Resources/${r[0]}${ecoUpgrades[indiceBuscado][2]}.webp`)
+        // console.log(collectionRates)
+        newProductionPortfolio()
+    })
+};
+
 
 // objeto para almacenar requisitos de recursos por segundo
 let resourcesRquiredPerSecond = {
@@ -255,11 +301,11 @@ let borrar = function(){
 }
 document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
 
-// destructuring
+/* // destructuring
 
 let noRepeat = [];
 asd = function(){
     for(let i in productionPortfolio){
         i.name = [...noRepeat];
     }
-}
+} */
