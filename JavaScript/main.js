@@ -219,6 +219,7 @@ const funcionAllEcoUpgrades = ()=>{
             unitAmount.type = `number`
             unitAmount.placeholder = `Insert amount`
             unitAmount.classList.add(`unidades__${unit.name}-q`)
+            unitAmount.value = 0
             unitAmount.addEventListener("change", newProductionPortfolio) // si cambio el valor, se ejecuta un newProductionPortfolio
 
             const unitImg = document.createElement(`img`); // crea un img por unidad
@@ -296,7 +297,8 @@ const funcionAllEcoUpgrades = ()=>{
     })
 } 
 
-funcionAllEcoUpgrades()
+setTimeout(()=>funcionAllEcoUpgrades(),0) 
+// funcionAllEcoUpgrades()
 
 
 
