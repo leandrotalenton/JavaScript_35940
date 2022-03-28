@@ -5,6 +5,48 @@
     /* border: 1px solid red; */
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+	width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(0, 54, 74);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(0, 76, 111);
+    box-shadow: inset 0 0 5px grey;
+}
+
+body{
+    margin-top: 60px;
+    background-color: rgb(27, 40, 56);
+    color: white;
+}
+
+.mainContent{
+    padding: 0 40px;
+}
+
+header{
+    height: 60px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #171a21cc;
+    box-shadow: 0 3px 7px 3px #171a2190;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
 ul li{
     text-decoration: none;
     list-style: none;
@@ -22,6 +64,15 @@ ul li{
     flex-direction: column;
     margin: 5px;
     width: 80px;
+    transition: 0.25s;
+}
+
+.unidades__div:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px #66c0f48b;
+}
+.unidades__div:hover > .unidades__div-imagen{
+    filter: brightness(1);
 }
 
 .unidades__div-imagen{
@@ -29,6 +80,23 @@ ul li{
     width: 80px;
     margin: auto;
     filter: brightness(.5);
+    transition: 0.2s;
+}
+
+input {
+    color: rgb(214, 214, 214);
+    background-color: rgb(17, 26, 37);
+    text-decoration: none;
+    text-align: center;
+    border: none;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
 .activeImg{
@@ -110,35 +178,100 @@ ul li{
 .ecoUpgrades{
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 15px;
 }
 
 .divRecurso-mejoras{
     display: grid;
     grid-auto-flow: column;
     grid-auto-rows: 10px;
-    gap: 0 2px
+    gap: 0 4px
 }
 
 .divMejora{
     height: 15px;
     width: 1fr;
+    padding: 0.11px;
     background-color: rgb(32, 65, 35);
+    border: 0.1px solid rgb(255, 255, 255, 0.03);
 }
 
 .divMejoraActiva{
+    transition: 0.25s;
     background-color: rgb(59, 112, 54);
 }
 
 .divRecurso{
-    height: 84px;
+    height: 99px;
     margin: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 80px;
+    transition: 0.25s;
 }
 
 .divRecurso-img{
+    filter: brightness(0.75);
     height: 80px;
     width: 80px;
-    margin-bottom: 1px;
+    margin-bottom: 4px;
 }
+
+.divRecurso:hover{
+    background-color: #66c0f44e;
+    cursor: pointer;
+    filter: brightness(1);
+    transition: 0.25s;
+    box-shadow: 0 0 10px #66c0f48b;
+}
+
+/* sidebar */
+.sidebar {
+	background-color: #264653;
+	width: 12rem;
+	height: 100vh;
+	padding: 0;
+	position: fixed;
+	transition: transform 300ms ease-in;
+    z-index: 100;
+}
+
+.sidebar--isHidden {
+    transform: translateX(-10.25rem);
+    transition: transform 300ms ease-out;
+}
+
+.rotate{
+    transform: rotate(40deg);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 1.5rem;
+    padding-right: 0;
+    margin-top: 0;
+}
+
+.sidebar-menu__item {
+    display: block;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu__item a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar-menu__item a:hover {
+    color: #acacac;
+}
+
+#toggle {
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+	padding: 0.5rem 0.3rem 0.5rem 2rem;
+	cursor: pointer;
+    text-align: right;
+    fill: #ffffff;
+}
+/* sidebarend */
