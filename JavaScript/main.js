@@ -57,17 +57,15 @@ let ecoUpgrades = [ // [recurso, mejora maxima, mejora actual]
 
 for(let r of ecoUpgrades){
     const divRecurso = document.createElement(`div`);
-    divRecurso.classList.add(`divRecurso-${r[0]}`);
-    divRecurso.classList.add(`divRecurso`);
+    divRecurso.classList.add(`divRecurso-${r[0]}`, `divRecurso`);
 
     const imgRecursoImg = document.createElement(`img`);
-    imgRecursoImg.classList.add(`divRecurso-${r[0]}-img`);
-    imgRecursoImg.classList.add(`divRecurso-img`);
+    imgRecursoImg.ondragstart = function() { return false; };
+    imgRecursoImg.classList.add(`divRecurso-${r[0]}-img`, `divRecurso-img`);
     imgRecursoImg.setAttribute(`src`,`./Resources/${r[0]}0.webp`)
     
     const divRecursoMejoras = document.createElement(`div`);
-    divRecursoMejoras.classList.add(`divRecurso-${r[0]}-mejoras`);
-    divRecursoMejoras.classList.add(`divRecurso-mejoras`);
+    divRecursoMejoras.classList.add(`divRecurso-${r[0]}-mejoras`, `divRecurso-mejoras`);
 
     divRecurso.appendChild(imgRecursoImg);
     divRecurso.appendChild(divRecursoMejoras);
@@ -75,8 +73,7 @@ for(let r of ecoUpgrades){
 
     for(let i=0; i<r[1]; i+=1){
         const divMejora = document.createElement(`div`);
-        divMejora.classList.add(`divMejora-${r[0]}`);
-        divMejora.classList.add(`divMejora`);
+        divMejora.classList.add(`divMejora-${r[0]}`, `divMejora`);
         divMejora.setAttribute(`value`,i+1)
 
         document.querySelector(`.divRecurso-${r[0]}-mejoras`).appendChild(divMejora);
@@ -118,10 +115,12 @@ class Unit {
 
 let unitsList = [
     archer = new Unit (`archer`,35,0,25,45,0,`archeryRange`),
+    skirmisher = new Unit (`skirmisher`,22,25,35,0,0,`archeryRange`),
     batteringRam = new Unit (`batteringRam`,36,0,160,75,0,`siegeWorkshop`),
     bombardCannon = new Unit (`bombardCannon`,57,0,225,225,0,`siegeWorkshop`),
     camel = new Unit (`camel`,22,55,0,60,0,`stable`),
     cavalryArcher = new Unit (`cavalryArcher`,34,0,40,70,0,`archeryRange`),
+    militia = new Unit (`militia`,22,60,0,20,0,`barracks`),
     eagleWarrior = new Unit (`eagleWarrior`,35,25,0,50,0,`barracks`),
     handCannoneer = new Unit (`handCannoneer`,34,45,0,50,0,`archeryRange`),
     knight = new Unit (`knight`,30,60,0,75,0,`stable`),
@@ -129,12 +128,35 @@ let unitsList = [
     mangonel = new Unit (`mangonel`,46,0,160,135,0,`siegeWorkshop`),
     monk = new Unit (`monk`,51,0,0,100,0,`monastery`),
     scorpion = new Unit (`scorpion`,30,0,75,75,0,`siegeWorkshop`),
-    skirmisher = new Unit (`skirmisher`,22,25,35,0,0,`archeryRange`),
     spearman = new Unit (`spearman`,22,35,25,0,0,`barracks`),
-    militia = new Unit (`militia`,22,60,0,20,0,`barracks`),
     trebuchet = new Unit (`trebuchet`,50,0,200,200,0,`castle`),
+    petard = new Unit (`petard`,25,65,0,20,0,`castle`),
     villager = new Unit (`villager`,25,50,0,0,0,`townCenter`),
+    berserk = new Unit (`berserk`,16,65,0,25,0,`castle`),
+    cataphract = new Unit (`cataphract`,20,60,0,75,0,`castle`),
+    chuKoNu = new Unit (`chuKoNu`,19,0,40,35,0,`castle`),
+    conquistador = new Unit (`conquistador`,24,60,0,70,0,`castle`),
+    huskarl = new Unit (`huskarl`,13,80,0,40,0,`castle`),
+    jaguarWarrior = new Unit (`jaguarWarrior`,17,60,0,30,0,`castle`),
+    janissary = new Unit (`janissary`,17,60,0,55,0,`castle`),
+    longbowman = new Unit (`longbowman`,19,0,35,40,0,`castle`),
+    mameluke = new Unit (`mameluke`,23,55,0,85,0,`castle`),
+    mangudai = new Unit (`mangudai`,26,0,55,65,0,`castle`),
+    missionary = new Unit (`missionary`,51,0,0,100,0,`castle`),
+    plumedArcher = new Unit (`plumedArcher`,16,0,46,46,0,`castle`),
+    samurai = new Unit (`samurai`,9,60,0,30,0,`castle`),
+    tarkan = new Unit (`tarkan`,14,60,0,60,0,`castle`),
+    throwingAxeman = new Unit (`throwingAxeman`,17,55,0,25,0,`castle`),
+    teutonicKnight = new Unit (`teutonicKnight`,12,85,0,40,0,`castle`),
+    warElephant = new Unit (`warElephant`,31,200,0,75,0,`castle`),
+    warWagon = new Unit (`warWagon`,25,0,120,60,0,`castle`),
     elephant = new Unit (`elephant`,24,120,0,70,0,`stable`),
+    malayElephnat = new Unit (`malayElephnat`,24,84,0,49,0,`stable`),
+    woadRaider = new Unit (`woadRaider`,10,65,0,25,0,`castle`),
+    siegeTower = new Unit (`siegeTower`,36,0,200,160,0,`siegeWorkshop`),
+    steppeLancer = new Unit (`steppeLancer`,24,70,0,40,0,`stable`),
+    castle = new Unit (`castle`,100,0,0,0,650,`townCenter`),
+    guardTower = new Unit (`guardTower`,40,0,50,0,125,`townCenter`),
 ];
 
 // objeto para almacenar requisitos de recursos por segundo
@@ -148,11 +170,11 @@ let resourcesRquiredPerSecond = {
         resourcesRquiredPerSecond.wood = 0;
         resourcesRquiredPerSecond.gold = 0;
         resourcesRquiredPerSecond.stone = 0;
-        for(const unit of productionPortfolio){
-            resourcesRquiredPerSecond.food += (unit.foodCost / unit.timeCost);
-            resourcesRquiredPerSecond.wood += (unit.woodCost / unit.timeCost);
-            resourcesRquiredPerSecond.gold += (unit.goldCost / unit.timeCost);
-            resourcesRquiredPerSecond.stone += (unit.stoneCost / unit.timeCost);
+        for(const unit of unitsList){
+            resourcesRquiredPerSecond.food += unit.quantity*(unit.foodCost / unit.timeCost);
+            resourcesRquiredPerSecond.wood += unit.quantity*(unit.woodCost / unit.timeCost);
+            resourcesRquiredPerSecond.gold += unit.quantity*(unit.goldCost / unit.timeCost);
+            resourcesRquiredPerSecond.stone += unit.quantity*(unit.stoneCost / unit.timeCost);
         }
     }
 }
@@ -170,106 +192,173 @@ let villagerDistribution = {
         villagerDistribution.stone = Math.ceil(resourcesRquiredPerSecond.stone  / collectionRates.stone);
     },
     mostrarCantidadDeAldeanos: function() {
-        document.querySelector(`.recursos__food-texto`).innerHTML = (`${villagerDistribution.food}`);
-        document.querySelector(`.recursos__wood-texto`).innerHTML = (`${villagerDistribution.wood}`);
-        document.querySelector(`.recursos__gold-texto`).innerHTML = (`${villagerDistribution.gold}`);
-        document.querySelector(`.recursos__stone-texto`).innerHTML = (`${villagerDistribution.stone}`);
-        document.querySelector(`.recursos__totales-texto`).innerHTML = (`${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}`);
+        document.querySelector(`.recursos__food--text`).innerHTML = (`${villagerDistribution.food}`);
+        document.querySelector(`.recursos__wood--text`).innerHTML = (`${villagerDistribution.wood}`);
+        document.querySelector(`.recursos__gold--text`).innerHTML = (`${villagerDistribution.gold}`);
+        document.querySelector(`.recursos__stone--text`).innerHTML = (`${villagerDistribution.stone}`);
+        document.querySelector(`.recursos__totales--text`).innerHTML = (`${villagerDistribution.food+villagerDistribution.wood+villagerDistribution.gold+villagerDistribution.stone}`);
     }
 }
 
-// declaro la cartera de produccion donde se van a agregar las opcciones elegidas de unidades
-let productionPortfolio = [];
-
-
 //funcion que actualiza el calculo de aldeanos y lo refleja en el HTML
 newProductionPortfolio = function(){
-    productionPortfolio = []; // vacia el productionPortfolio existente
     for(unit of unitsList){
+        try{
         let Q = document.querySelector(`.unidades__${unit.name}-q`);
         (Q.value === "" || parseInt(Q.value) < 0) && (Q.value = 0); //arregla campos vacios o con Q <0
         parseInt(Q.value) != 0 //por defecto las imagenes estan oscuras, si Q es >0, se iluminan
             ?document.querySelector(`.unidades__${unit.name}-imagen`).classList.add(`activeImg`)
-            :document.querySelector(`.unidades__${unit.name}-imagen`).classList.remove(`activeImg`)
-        for(i = 1; i <= `${parseInt(Q.value)}` ; i++){ //agrega al protfolio de produccion una cantidad de unidades igual a Q
-            productionPortfolio.push(unit);
-        }
+            :document.querySelector(`.unidades__${unit.name}-imagen`).classList.remove(`activeImg`);
+        unit.quantity = parseInt(Q.value);
+        } catch {continue};
     }
     resourcesRquiredPerSecond.calculateResourcesRquiredPerSecond();
     villagerDistribution.calularCantidadDeAldeanos();
     villagerDistribution.mostrarCantidadDeAldeanos();
+    newProductionQueue()
 }
 
+let displayBuildings = {
+    townCenter: true,
+    barracks: true,
+    archeryRange: true,
+    siegeWorkshop: true,
+    stable: true,
+    monastery: true,
+    castle: true,
+};
 
+for(let bu in displayBuildings){
+    const buildingImg = document.createElement(`img`);
+    buildingImg.classList.add(`building__${bu}`,`building__img` ,`sidebar-menu__item` ,`building__img-active` );
+    buildingImg.src = `./Resources/${bu}.webp`;
+    buildingImg.ondragstart = function() { return false; };
+    buildingImg.value = bu;
+    buildingImg.addEventListener(`click`,function(){
+        buildingImg.classList.toggle(`building__img-active`);
+        displayBuildings[buildingImg.value] === true
+        ? displayBuildings[buildingImg.value] = false
+        : displayBuildings[buildingImg.value] = true;
+    })
+    buildingImg.addEventListener(`click`,displayUnits)
+    document.querySelector(`.sidebar-menu`).appendChild(buildingImg)
+}
 
 // creacion del HTML con sus eventos
-for(const unit of unitsList){
-    const unitDiv = document.createElement(`div`); // crea un div por unidad
-    unitDiv.classList.add(`unidades__${unit.name}`);
-    unitDiv.classList.add(`unidades__div`);
-
-    const unitAmount = document.createElement(`input`); // crea un input por unidad
-    unitAmount.type = `number`
-    unitAmount.placeholder = `Insert amount`
-    unitAmount.classList.add(`unidades__${unit.name}-q`)
-    unitAmount.value = 0
-    unitAmount.addEventListener("change", newProductionPortfolio) // si cambio el valor, se ejecuta un newProductionPortfolio
-
-    const unitImg = document.createElement(`img`); // crea un img por unidad
-    unitImg.classList.add(`unidades__${unit.name}-imagen`);
-    unitImg.classList.add(`unidades__div-imagen`);
-    unitImg.src = unit.image; // le pone el source que figura como propiedad del objeto
-    unitImg.setAttribute(`title`,`${unit.name}`)
-    unitImg.onclick = ()=>{ // si clickeo en la imagen se aumenta en 1 al valor del input
-        unitAmount.value = parseInt(unitAmount.value) + 1;
-        newProductionPortfolio()
-    };
-
-    unitDiv.appendChild(unitImg); // agrego la image
-    unitDiv.appendChild(unitAmount);
-
-    document.querySelector(`.unidades`).appendChild(unitDiv); // agrego las cosas creadas dinamicamente al div existende de mi HTML
+function displayUnits(){
+    document.querySelector(`.unidades`).innerHTML = "";
+    for(let bu in displayBuildings){
+        if(displayBuildings[bu]){
+            let buildingUnits = unitsList.filter((unit)=>unit.building === bu);
+            for(const unit of buildingUnits){
+                const unitDiv = document.createElement(`div`); // crea un div por unidad
+                unitDiv.classList.add(`unidades__${unit.name}`, `unidades__div`);
+                
+                const unitAmount = document.createElement(`input`); // crea un input por unidad
+                unitAmount.type = `number`
+                unitAmount.placeholder = `Insert amount`
+                unitAmount.classList.add(`unidades__${unit.name}-q`)
+                unitAmount.value = unit.quantity
+                unitAmount.addEventListener("change", ()=> {
+                    newProductionPortfolio()
+                    guardar()
+                }) // si cambio el valor, se ejecuta un newProductionPortfolio
+                
+                const unitImg = document.createElement(`img`); // crea un img por unidad
+                unitImg.classList.add(`unidades__${unit.name}-imagen`, `unidades__div-imagen`, parseInt(unit.quantity)>0 && `activeImg`);
+                unitImg.src = unit.image; // le pone el source que figura como propiedad del objeto
+                unitImg.ondragstart = function() { return false; };
+                unitImg.setAttribute(`title`,`${unit.name}`)
+                unitImg.onclick = ()=>{ // si clickeo en la imagen se aumenta en 1 al valor del input
+                    unitAmount.value = parseInt(unitAmount.value) + 1;
+                    newProductionPortfolio()
+                    guardar()
+                };
+                
+                unitDiv.appendChild(unitImg); // agrego la image
+                unitDiv.appendChild(unitAmount);
+                
+                document.querySelector(`.unidades`).appendChild(unitDiv); // agrego las cosas creadas dinamicamente al div existende de mi HTML
+            }
+        }
+    }
 }
 
-document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
+displayUnits()
+
+// creacion del HTML con sus eventos
+/* function displayUnits(){
+    for(const unit of unitsList){
+        const unitDiv = document.createElement(`div`); // crea un div por unidad
+        unitDiv.classList.add(`unidades__${unit.name}`, `unidades__div`);
+
+        const unitAmount = document.createElement(`input`); // crea un input por unidad
+        unitAmount.type = `number`
+        unitAmount.placeholder = `Insert amount`
+        unitAmount.classList.add(`unidades__${unit.name}-q`)
+        unitAmount.value = unit.quantity
+        unitAmount.addEventListener("change", newProductionPortfolio) // si cambio el valor, se ejecuta un newProductionPortfolio
+
+        const unitImg = document.createElement(`img`); // crea un img por unidad
+        unitImg.classList.add(`unidades__${unit.name}-imagen`, `unidades__div-imagen`);
+        unitImg.src = unit.image; // le pone el source que figura como propiedad del objeto
+        unitImg.ondragstart = function() { return false; };
+        unitImg.setAttribute(`title`,`${unit.name}`)
+        unitImg.onclick = ()=>{ // si clickeo en la imagen se aumenta en 1 al valor del input
+            unitAmount.value = parseInt(unitAmount.value) + 1;
+            newProductionPortfolio()
+        };
+
+        unitDiv.appendChild(unitImg); // agrego la image
+        unitDiv.appendChild(unitAmount);
+
+        document.querySelector(`.unidades`).appendChild(unitDiv); // agrego las cosas creadas dinamicamente al div existende de mi HTML
+    }
+}
+
+displayUnits() */
+
+// document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
 
 
 // se agregan las funcionalidades del localstorage (por ahora son de compromiso para entregar algo)
-let guardar = function(){
-    let stringProductionPortfolio = JSON.stringify(productionPortfolio);
-    localStorage.setItem(`stringProductionPortfolio`, stringProductionPortfolio)
+function guardar(){
+    let stringUnitsList = JSON.stringify(unitsList);
+    localStorage.setItem(`stringUnitsList`, stringUnitsList)
     Toastify({
         text: "Seleccion de unidades guardada",
-        duration: 1000,
+        duration: 500,
         gravity: "bottom",
         style: {background: "rgb(0, 76, 111)",},
     }).showToast();
 }
-document.querySelector(`.botonGuardar`).addEventListener(`click`, guardar);
 
-let cargar = function(){
-    productionPortfolio = JSON.parse(localStorage.getItem(`stringProductionPortfolio`)) || [];
+function cargar(){
+    JSON.parse(localStorage.getItem(`stringUnitsList`)) === null
+    ? guardar()
+    :unitsList = JSON.parse(localStorage.getItem(`stringUnitsList`)) ;
     for(unit of unitsList){
-        document.querySelector(`.unidades__${unit.name}-q`).value = productionPortfolio.filter(propiedadNombre => propiedadNombre.name == unit.name).length;
+        try{document.querySelector(`.unidades__${unit.name}-q`).value = unit.quantity;}catch{continue};
     }
     newProductionPortfolio()
     Toastify({
         text: "Seleccion de unidades cargada",
-        duration: 1000,
+        duration: 500,
         gravity: "bottom",
         style: {background: "rgb(0, 76, 111)",},
     }).showToast();
 }
-document.querySelector(`.botonCargar`).addEventListener(`click`, cargar);
 
-let borrar = function(){
+function borrar(){
     for(unit of unitsList){
-        document.querySelector(`.unidades__${unit.name}-q`).value = 0
+        unit.quantity = 0
+        try{document.querySelector(`.unidades__${unit.name}-q`).value = 0}catch{continue}
     }
     newProductionPortfolio();
+    localStorage.clear()
     Toastify({
         text: "Seleccion de unidades borrada",
-        duration: 1000,
+        duration: 500,
         gravity: "bottom",
         style: {background: "rgb(0, 76, 111)",},
     }).showToast();
@@ -277,14 +366,37 @@ let borrar = function(){
 document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
 
 /*     })
-
-
     .catch((err)=>{
         console.log(err) // <-- si algo sale muuy mal se va por aca.
     })
 }  
 
 funcionAllEcoUpgrades()*/
+
+document.querySelector(`.span-general`).setAttribute(`title`,`
+Primera fila:
+    Cantidad mínima de aldeanos destinados a 
+    cada recurso, con el objetivo de mantener 
+    la producción constante de las unidades 
+    seleccionadas
+Segunda fila:
+    Cantidad de unidades producidas por minuto
+`)
+document.querySelector(`.span-economia`).setAttribute(`title`,`
+Mejoras económicas que aceleran la velocidad 
+de recolección de recursos de los aldeanos
+`)
+document.querySelector(`.span-unidades`).setAttribute(`title`,`
+Seleccione el tipo y cantidad de 
+unidades de las que se desea mantener 
+producción constante
+Puede filtrar las unidades visibles 
+desde el menu desplegable
+`)
+document.querySelector(`#toggle`).setAttribute(`title`,`
+Filtro de unidades visible 
+según edificio de producción
+`)
 
 document.getElementById("toggle").addEventListener("click", () => {
     const sidebarEl = document.getElementsByClassName("sidebar")[0];
@@ -294,3 +406,37 @@ document.getElementById("toggle").addEventListener("click", () => {
         ? "> "
         : "< ";
 });
+
+cargar()
+
+function newProductionQueue(){
+    document.querySelector(`.productionQueue`).innerHTML = "";
+    for(unidad of unitsList){
+        if(unidad.quantity > 0){
+            let unitQueue = document.createElement(`div`);
+            unitQueue.classList.add(`${unidad.name}`, `productionQueue__unitCard`);
+            
+            let unitQueueImg = document.createElement(`div`);
+            unitQueueImg.ondragstart = function() { return false; };
+            unitQueueImg.classList.add(`${unidad.name}`, `productionQueue__unitCard-img`);
+            unitQueueImg.setAttribute("style", `background-image: url("./Resources/${unidad.name}.webp");`)
+
+            let unitQueueImgQuantity = document.createElement(`div`);
+            unitQueueImgQuantity.ondragstart = function() { return false; };
+            unitQueueImgQuantity.classList.add(`${unidad.name}`, `productionQueue__unitCard-img-quantity`);
+            unitQueueImgQuantity.innerText = `${parseInt((60 / unidad.timeCost)*unidad.quantity*1.7*10)/10}`
+            
+            let unitQueueImgAnimation = document.createElement(`div`);
+            unitQueueImgAnimation.ondragstart = function() { return false; };
+            unitQueueImgAnimation.classList.add(`${unidad.name}`, `productionQueue__unitCard-img-animation`);
+            unitQueueImgAnimation.setAttribute("style", `animation: progres ${unidad.timeCost / 1.7}s linear infinite;`)
+            
+
+
+            unitQueueImg.appendChild(unitQueueImgAnimation)
+            unitQueueImg.appendChild(unitQueueImgQuantity)
+            unitQueue.appendChild(unitQueueImg)
+            document.querySelector(`.productionQueue`).appendChild(unitQueue)
+        }
+    }
+}

@@ -2,7 +2,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Merriweather', serif;
     /* border: 1px solid red; */
+}
+
+span{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    /* background-color: red; */
+    background-image: url(../Resources/Vector.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(.75);
+    cursor: help;
 }
 
 html {
@@ -31,21 +44,45 @@ body{
     color: white;
 }
 
+h1{
+    font-size: 26px;
+    grid-area: tit;
+
+}
+
+h2{
+    font-size: 20px;
+}
+
+p{
+    font-size: 12px;
+}
+
 .mainContent{
+    margin-top: 134px;
     padding: 0 40px;
 }
 
 header{
-    height: 60px;
+    padding: 8px;
+    /* height: 115px; */
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
-    background: #171a21cc;
-    box-shadow: 0 3px 7px 3px #171a2190;
+    background: #171a21ef;
+    box-shadow: 0 3px 7px 3px #171a21bd;
     backdrop-filter: blur(5px);
-    z-index: 10;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 30px auto auto;
+    grid-template-areas: 
+        "teut tit"
+        "teut res"
+        "teut que";
 }
+
 
 ul li{
     text-decoration: none;
@@ -104,75 +141,76 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .recursos{
-    background-image: url(../Resources/resPannel.JPG);
-    background-repeat: no-repeat;
-    background-position: left;
-    background-size: 850px;
-    width: 850px;
-    height: 60px;
-    color: white;
-    font-weight: 400;
     display: flex;
-    /* flex-direction: column; */
-    /* justify-content: flex-start; */
     flex-wrap: wrap;
-    margin: 15px 0px;
+    margin: auto 0px;
 }
 
-.recursos li{
-    display: flex;
-    margin: 3px 0px;
+.recursos__wood{
+    background-image: url(../Resources/wood.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 54px;
+    height: 36px;
+    text-align: start;
+    direction: rtl;
+    border-radius: 0.2rem;
+    border: 2px solid rgb(93, 87, 76);
+    margin: 4px 8px 4px 0px;
 }
-
-.recursos__wood-texto{
-    width: 35px;
-    height: 20px;
-    text-align: right;
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    left: -21px;
-    top: 26px;
+.recursos__food{
+    background-image: url(../Resources/food.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 54px;
+    height: 36px;
+    text-align: start;
+    direction: rtl;
+    border-radius: 0.2rem;
+    border: 2px solid rgb(93, 87, 76);
+    margin: 4px 8px 4px 0px;
 }
-.recursos__food-texto{
-    width: 35px;
-    height: 20px;
-    text-align: right;
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    left: 43px;
-    top: 26px;
+.recursos__gold{
+    background-image: url(../Resources/gold.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 54px;
+    height: 36px;
+    text-align: start;
+    direction: rtl;
+    border-radius: 0.2rem;
+    border: 2px solid rgb(93, 87, 76);
+    margin: 4px 8px 4px 0px;
 }
-.recursos__gold-texto{
-    width: 35px;
-    height: 20px;
-    text-align: right;
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    left: 110px;
-    top: 26px;
+.recursos__stone{
+    background-image: url(../Resources/stone.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 54px;
+    height: 36px;
+    text-align: start;
+    direction: rtl;
+    border-radius: 0.2rem;
+    border: 2px solid rgb(93, 87, 76);
+    margin: 4px 8px 4px 0px;
 }
-.recursos__stone-texto{
-    width: 35px;
-    height: 20px;
-    text-align: right;
-    position: relative;
-    bottom: 0px;
-    right: 0px;
-    left: 176px;
-    top: 26px;
+.recursos__totales{
+    background-image: url(../Resources/totalvills.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 54px;
+    height: 36px;
+    text-align: start;
+    direction: rtl;
+    border-radius: 0.2rem;
+    border: 2px solid rgb(93, 87, 76);
+    margin: 4px 8px 4px 0px;
 }
-.recursos__totales-texto{
-    width: 35px;
-    height: 20px;
-    text-align: right;
+.recursos--text{
     position: relative;
-    bottom: 0px;
-    right: 0px;
-    left: 242px;
-    top: 26px;
+    top: 12px;
+    left: 0px;
+    text-shadow: 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000;
 }
 
 .ecoUpgrades{
@@ -225,13 +263,17 @@ input[type=number]::-webkit-inner-spin-button {
 
 /* sidebar */
 .sidebar {
-	background-color: #264653;
+	background-color: #264653ce;
 	width: 12rem;
-	height: 100vh;
+	height: 85vh;
 	padding: 0;
 	position: fixed;
 	transition: transform 300ms ease-in;
     z-index: 100;
+    display: flex;
+    flex-direction: row-reverse;
+    backdrop-filter: blur(5px);
+    z-index: 10;
 }
 
 .sidebar--isHidden {
@@ -245,33 +287,209 @@ input[type=number]::-webkit-inner-spin-button {
 
 .sidebar-menu {
     list-style: none;
-    padding: 1.5rem;
+    padding: 1rem;
     padding-right: 0;
     margin-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .sidebar-menu__item {
-    display: block;
     cursor: pointer;
-    margin-bottom: 0.5rem;
 }
 
-.sidebar-menu__item a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.sidebar-menu__item a:hover {
+.sidebar-menu__item:hover {
     color: #acacac;
+    transition: 0.2s;
+    box-shadow: 0 0 10px rgba(102, 192, 244, 0.545);
 }
 
 #toggle {
+    height: auto;
     color: white;
     font-size: 32px;
     font-weight: 900;
-	padding: 0.5rem 0.3rem 0.5rem 2rem;
+	padding: 0.5rem 0.3rem 0.5rem 0rem;
 	cursor: pointer;
     text-align: right;
     fill: #ffffff;
+    /* -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate; */
 }
+
+/* @-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 3px rgba(102, 192, 244, 0.1), 0 0 4px rgba(102, 192, 244, 0.15), 0 0 5px rgba(102, 192, 244, 0.2), 0 0 6px rgba(102, 192, 244, 0.25), 0 0 7px rgba(102, 192, 244, 0.3);
+    }
+    to {
+        text-shadow: none;
+    }
+} */
+
 /* sidebarend */
+
+
+.building__img{
+    height: 60px;
+    width: 60px;
+    background-color: red;
+    filter: brightness(.5);
+    margin: 0.3rem;
+}
+
+.building__img-active{
+    filter: brightness(1);
+}
+
+/* teuton */
+.teuton_container {
+    grid-area: teut;
+    margin: 0px 5px;
+    width: 75px;
+    height: 100px;
+    display: flex;
+    /* border: 1px solid red; */
+    z-index: 100; 
+}
+.teuton_container__teuton {
+    width: 55px;
+    height: 150px;
+    background-image: url(../Resources/legs.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: translate(-13px, -6px) scale(0.45);
+    padding: 60px; 
+}
+.teuton_container__teuton::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: -13px;
+    width: 200px;
+    height: 200px;
+    background-image: url(../Resources/body.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transform: translate(-90px, -77px);
+    animation: standing 1.4s linear infinite; 
+}
+
+@keyframes standing {
+    000% {transform: translate(-50px, -77px);}
+    050% {transform: translate(-50px, -73px);}
+    100% {transform: translate(-50px, -77px);} 
+}
+
+.botonBorrar{
+    border-radius: 0.2rem;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(88, 3, 88);
+    position: fixed;
+    bottom: 15px;
+    right: auto;
+    left: auto;
+    z-index: 100;
+    box-shadow: 0 0 10px #3058718b;
+}
+
+.productionQueue{
+    display: flex;
+    grid-area: que;
+    flex-wrap: wrap;
+}
+
+.productionQueue__unitCard{
+    height: 38px;
+    overflow: hidden;
+}
+
+.productionQueue__unitCard-img{
+    margin: 3px;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 36px;
+    height: 56px;
+}
+
+/* animation: progres 4s infinite linear */
+
+/* @keyframes progres{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}; */
+
+.productionQueue__unitCard-img-animation{
+    content: "";
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 182, 39, 0.347);
+    border-right: 1px solid rgba(28, 100, 21, 0.4);
+}
+
+@keyframes progres{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}
+
+.productionQueue__unitCard-img-quantity{
+    font-size: 10px;
+    text-align: center;
+    content: "";
+    height: 36;
+    position: relative;
+    top: -57px;
+    /* left: 15px; */
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-radius: 1.25px;
+    /* background-color: red; */
+    border: 1px solid rgb(171, 170, 170);
+    overflow: visible;
+    z-index: 100;
+    text-shadow: 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000, 0px 0px 3px #000000;
+}
+
+@media (max-width: 540px){
+    h1{display: none;}
+
+    header{
+        padding: 8px;
+        /* height: 115px; */
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        background: #171a21ef;
+        box-shadow: 0 3px 7px 3px #171a21bd;
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+            "teut res"
+            "teut que";
+    }
+}
+
+@media (max-width: 245px){
+    .recursos__totales{display: none;}
+}
