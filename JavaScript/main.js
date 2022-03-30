@@ -72,14 +72,27 @@ for(let r of ecoUpgrades){
     document.querySelector(`.ecoUpgrades`).appendChild(divRecurso);
 
     for(let i=0; i<r[1]; i+=1){
+        let indiceBuscado = ecoUpgrades.indexOf(ecoUpgrades.find(asd => asd[0] == r[0]));
         const divMejora = document.createElement(`div`);
-        divMejora.classList.add(`divMejora-${r[0]}`, `divMejora`);
+        divMejora.classList.add(`divMejora-${r[0]}`, `divMejora`, `divMejora-${r[0]}`);
         divMejora.setAttribute(`value`,i+1)
+        divMejora.addEventListener(`click`, ()=> {
+            ecoUpgrades[indiceBuscado][2] = i+1
+            collectionRates[ecoUpgrades[indiceBuscado][0]]=allEcoUpgrades.filter(I => I.resource === ecoUpgrades[indiceBuscado][0])[ecoUpgrades[indiceBuscado][2]].rate; // cambia el valor del recurso correspondiente en el array "collectionRates" por el de la mejora activa
+            document.querySelector(`.divRecurso-${r[0]}-img`).setAttribute(`src`,`./Resources/${r[0]}${ecoUpgrades[indiceBuscado][2]}.webp`)
+            newProductionPortfolio()
+
+            for(let div of document.querySelectorAll(`.divMejora-${r[0]}`)){
+                if(ecoUpgrades[indiceBuscado][2] >=div.getAttribute(`value`) ){
+                    div.classList.add(`divMejoraActiva`);
+                } else div.classList.remove(`divMejoraActiva`);
+            };
+        })
 
         document.querySelector(`.divRecurso-${r[0]}-mejoras`).appendChild(divMejora);
     }
 
-    document.querySelector(`.divRecurso-${r[0]}`).addEventListener(`click`,()=>{
+    document.querySelector(`.divRecurso-${r[0]}-img`).addEventListener(`click`,()=>{
         let indiceBuscado = ecoUpgrades.indexOf(ecoUpgrades.find(i => i[0] == r[0])); //indice de la mejora estoy haciendo en esta iteracion
         (ecoUpgrades[indiceBuscado][2] == ecoUpgrades[indiceBuscado][1]) && (ecoUpgrades[indiceBuscado][2] = -1);
         ecoUpgrades[indiceBuscado][2] = ecoUpgrades[indiceBuscado][2] + 1;
@@ -216,6 +229,7 @@ newProductionPortfolio = function(){
     villagerDistribution.calularCantidadDeAldeanos();
     villagerDistribution.mostrarCantidadDeAldeanos();
     newProductionQueue()
+    headderResize()
 }
 
 let displayBuildings = {
@@ -285,41 +299,6 @@ function displayUnits(){
 }
 
 displayUnits()
-
-// creacion del HTML con sus eventos
-/* function displayUnits(){
-    for(const unit of unitsList){
-        const unitDiv = document.createElement(`div`); // crea un div por unidad
-        unitDiv.classList.add(`unidades__${unit.name}`, `unidades__div`);
-
-        const unitAmount = document.createElement(`input`); // crea un input por unidad
-        unitAmount.type = `number`
-        unitAmount.placeholder = `Insert amount`
-        unitAmount.classList.add(`unidades__${unit.name}-q`)
-        unitAmount.value = unit.quantity
-        unitAmount.addEventListener("change", newProductionPortfolio) // si cambio el valor, se ejecuta un newProductionPortfolio
-
-        const unitImg = document.createElement(`img`); // crea un img por unidad
-        unitImg.classList.add(`unidades__${unit.name}-imagen`, `unidades__div-imagen`);
-        unitImg.src = unit.image; // le pone el source que figura como propiedad del objeto
-        unitImg.ondragstart = function() { return false; };
-        unitImg.setAttribute(`title`,`${unit.name}`)
-        unitImg.onclick = ()=>{ // si clickeo en la imagen se aumenta en 1 al valor del input
-            unitAmount.value = parseInt(unitAmount.value) + 1;
-            newProductionPortfolio()
-        };
-
-        unitDiv.appendChild(unitImg); // agrego la image
-        unitDiv.appendChild(unitAmount);
-
-        document.querySelector(`.unidades`).appendChild(unitDiv); // agrego las cosas creadas dinamicamente al div existende de mi HTML
-    }
-}
-
-displayUnits() */
-
-// document.addEventListener(`DOMContentLoaded` , newProductionPortfolio)
-
 
 // se agregan las funcionalidades del localstorage (por ahora son de compromiso para entregar algo)
 function guardar(){
@@ -440,3 +419,10 @@ function newProductionQueue(){
         }
     }
 }
+
+function headderResize(){
+    document.querySelector(`.mainContent`).setAttribute(`style`, `margin-top: ${document.querySelector(`.headder`).clientHeight}px;`)
+}
+
+
+window.onresize = headderResize
