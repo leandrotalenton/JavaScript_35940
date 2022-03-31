@@ -362,7 +362,7 @@ document.querySelector(`.span-general`).addEventListener(`click`, ()=>{
         Swal.fire({
             title: 'Calculadora',
             text: `Cantidad mínima de aldeanos destinados a cada recurso, con el objetivo de mantener la producción constante de las unidades seleccionadas`,
-            imageUrl: '/Resources/resoruces.webp',
+            imageUrl: './Resources/resoruces.webp',
             imageWidth: 512,
             imageAlt: 'Recurso',
             width: 550,
@@ -380,7 +380,7 @@ document.querySelector(`.span-economia`).addEventListener(`click`, ()=>{
         Swal.fire({
             title: 'Mejoras económicas',
             text: `Las mejoras económicas aceleran la velocidad de recolección de recursos de los aldeanos`,
-            imageUrl: '/Resources/ecoUpgrades.webp',
+            imageUrl: './Resources/ecoUpgrades.webp',
             imageWidth: 512,
             imageAlt: 'economia',
             width: 550,
@@ -398,7 +398,7 @@ document.querySelector(`.span-unidades`).addEventListener(`click`, ()=>{
         Swal.fire({
             title: 'Seleccion de unidades',
             text: `Seleccione el tipo y cantidad de unidades de las que se desea mantener producción constante. Puede filtrar las unidades visibles desde el menu desplegable a la izquierda de la pantalla`,
-            imageUrl: '/Resources/productionBuildings.webp',
+            imageUrl: './Resources/productionBuildings.webp',
             imageWidth: 512,
             imageAlt: 'Unidades',
             width: 550,
@@ -464,7 +464,7 @@ function newProductionQueue(){
         Swal.fire({
             title: 'Cola de producción de unidades',
             text: `En la cola de producción de unidades puedes ver que unidades se están produciendo, y un numero que indica cuantas unidades por minuto se obtendrá`,
-            imageUrl: '/Resources/queue.webp',
+            imageUrl: './Resources/queue.webp',
             imageWidth: 512,
             imageAlt: 'Queue',
             width: 550,
