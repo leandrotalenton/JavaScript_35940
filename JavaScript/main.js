@@ -308,6 +308,8 @@ function guardar(){
         text: "Seleccion de unidades guardada",
         duration: 500,
         gravity: "bottom",
+        position: "left",
+        stopOnFocus: false,
         style: {background: "rgb(0, 76, 111)",},
     }).showToast();
 }
@@ -324,6 +326,8 @@ function cargar(){
         text: "Seleccion de unidades cargada",
         duration: 500,
         gravity: "bottom",
+        position: "left",
+        stopOnFocus: false,
         style: {background: "rgb(0, 76, 111)",},
     }).showToast();
 }
@@ -339,7 +343,9 @@ function borrar(){
         text: "Seleccion de unidades borrada",
         duration: 500,
         gravity: "bottom",
-        style: {background: "rgb(0, 76, 111)",},
+        position: "left",
+        stopOnFocus: false,
+        style: {background: "rgb(88, 3, 88)",},
     }).showToast();
 }
 document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
@@ -352,26 +358,60 @@ document.querySelector(`.botonBorrar`).addEventListener(`click`, borrar);
 
 funcionAllEcoUpgrades()*/
 
-document.querySelector(`.span-general`).setAttribute(`title`,`
-Primera fila:
-    Cantidad mínima de aldeanos destinados a 
-    cada recurso, con el objetivo de mantener 
-    la producción constante de las unidades 
-    seleccionadas
-Segunda fila:
-    Cantidad de unidades producidas por minuto
-`)
-document.querySelector(`.span-economia`).setAttribute(`title`,`
-Mejoras económicas que aceleran la velocidad 
-de recolección de recursos de los aldeanos
-`)
-document.querySelector(`.span-unidades`).setAttribute(`title`,`
-Seleccione el tipo y cantidad de 
-unidades de las que se desea mantener 
-producción constante
-Puede filtrar las unidades visibles 
-desde el menu desplegable
-`)
+document.querySelector(`.span-general`).addEventListener(`click`, ()=>{
+        Swal.fire({
+            title: 'Calculadora',
+            text: `Cantidad mínima de aldeanos destinados a cada recurso, con el objetivo de mantener la producción constante de las unidades seleccionadas`,
+            imageUrl: '../Resources/resoruces.webp',
+            imageWidth: 512,
+            imageAlt: 'Recurso',
+            width: 550,
+            padding: '3em',
+            color: 'rgb(255, 255, 255)',
+            background: 'rgb(8 38 51 / 80%)',
+            backdrop: `
+                rgba(23, 26, 33,0.3)
+            `
+        })
+    }
+)
+
+document.querySelector(`.span-economia`).addEventListener(`click`, ()=>{
+        Swal.fire({
+            title: 'Mejoras económicas',
+            text: `Las mejoras económicas aceleran la velocidad de recolección de recursos de los aldeanos`,
+            imageUrl: '../Resources/ecoUpgrades.webp',
+            imageWidth: 512,
+            imageAlt: 'economia',
+            width: 550,
+            padding: '3em',
+            color: 'rgb(255, 255, 255)',
+            background: 'rgb(8 38 51 / 80%)',
+            backdrop: `
+                rgba(23, 26, 33,0.3)
+            `
+        })
+    }
+)
+
+document.querySelector(`.span-unidades`).addEventListener(`click`, ()=>{
+        Swal.fire({
+            title: 'Seleccion de unidades',
+            text: `Seleccione el tipo y cantidad de unidades de las que se desea mantener producción constante. Puede filtrar las unidades visibles desde el menu desplegable a la izquierda de la pantalla`,
+            imageUrl: '../Resources/productionBuildings.webp',
+            imageWidth: 512,
+            imageAlt: 'Unidades',
+            width: 550,
+            padding: '3em',
+            color: 'rgb(255, 255, 255)',
+            background: 'rgb(8 38 51 / 80%)',
+            backdrop: `
+                rgba(23, 26, 33,0.3)
+            `
+        })
+    }
+)
+
 document.querySelector(`#toggle`).setAttribute(`title`,`
 Filtro de unidades visible 
 según edificio de producción
@@ -418,6 +458,25 @@ function newProductionQueue(){
             document.querySelector(`.productionQueue`).appendChild(unitQueue)
         }
     }
+    document.querySelector(`.productionQueue`).innerHTML += `<span class="span-queue"></span>`;
+
+    document.querySelector(`.span-queue`).addEventListener(`click`, ()=>{
+        Swal.fire({
+            title: 'Cola de producción de unidades',
+            text: `En la cola de producción de unidades puedes ver que unidades se están produciendo, y un numero que indica cuantas unidades por minuto se obtendrá`,
+            imageUrl: '../Resources/queue.webp',
+            imageWidth: 512,
+            imageAlt: 'Queue',
+            width: 550,
+            padding: '3em',
+            color: 'rgb(255, 255, 255)',
+            background: 'rgb(8 38 51 / 80%)',
+            backdrop: `
+                rgba(23, 26, 33,0.3)
+            `
+        })
+    }
+)
 }
 
 function headderResize(){
@@ -426,3 +485,14 @@ function headderResize(){
 
 
 window.onresize = headderResize
+
+window.addEventListener("resize", adjustTitle)
+window.addEventListener(`DOMContentLoaded`, adjustTitle)
+
+function adjustTitle() {
+    if (window.matchMedia("(min-width: 535px)").matches) {
+        this.document.querySelector(`h1`).classList.remove(`smallTitle`)
+    } else {
+        this.document.querySelector(`h1`).classList.add(`smallTitle`)
+    }
+}
