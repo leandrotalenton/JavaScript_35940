@@ -166,6 +166,34 @@ const funcionAllEcoUpgrades = ()=>{
             steppeLancer = new Unit (`steppeLancer`,24,70,0,40,0,`stable`),
             castle = new Unit (`castle`,100,0,0,0,650,`townCenter`),
             guardTower = new Unit (`guardTower`,40,0,50,0,125,`townCenter`),
+            donjon = new Unit (`donjon`,45,0,75,0,175,`townCenter`),
+            krepost = new Unit (`krepost`,75,0,0,0,350,`townCenter`),
+            arambai = new Unit (`arambai`,21,0,75,60,0,`castle`),
+            ballistaElephant = new Unit (`ballistaElephant`,25,100,0,80,0,`castle`),
+            boyar = new Unit (`boyar`,15,50,0,80,0,`castle`),
+            camelArcher = new Unit (`camelArcher`,25,0,50,60,0,`castle`),
+            condottiero = new Unit (`condottiero`,18,50,0,35,0,`barracks`),
+            coustillier = new Unit (`coustillier`,15,55,0,55,0,`castle`),
+            elephantArcher = new Unit (`elephantArcher`,25,100,0,70,0,`castle`),
+            flamingCamel = new Unit (`flamingCamel`,16,75,0,30,0,`castle`),
+            flemishMilitia = new Unit (`flemishMilitia`,14,60,0,25,0,`townCenter`),
+            gbeto = new Unit (`gbeto`,17,50,0,40,0,`castle`),
+            genitour = new Unit (`genitour`,25,50,35,0,0,`archeryRange`),
+            genoeseCrossbowman = new Unit (`genoeseCrossbowman`,18,0,45,40,0,`castle`),
+            hussiteWagon = new Unit (`hussiteWagon`,21,0,110,70,0,`castle`),
+            kamayuk = new Unit (`kamayuk`,10,60,0,30,0,`castle`),
+            karambitWarrior = new Unit (`karambitWarrior`,6,25,0,15,0,`castle`),
+            keshik = new Unit (`keshik`,16,60,0,40,0,`castle`),
+            kipchak = new Unit (`kipchak`,20,0,60,35,0,`castle`),
+            konnik = new Unit (`konnik`,19,60,0,70,0,`castle`),
+            leitis = new Unit (`leitis`,20,70,0,50,0,`castle`),
+            magyarHuszar = new Unit (`magyarHuszar`,16,80,0,10,0,`castle`),
+            obuch = new Unit (`obuch`,12,55,0,20,0,`castle`),
+            organGun = new Unit (`organGun`,21,0,80,70,0,`castle`),
+            rattanArcher = new Unit (`rattanArcher`,16,45,50,0,0,`castle`),
+            serjeant = new Unit (`serjeant`,12,60,0,35,0,`castle`),
+            shotelWarrior = new Unit (`shotelWarrior`,8,50,0,30,0,`castle`),
+            slinger = new Unit (`slinger`,25,30,0,40,0,`archeryRange`),
         ];
 
         // objeto para almacenar requisitos de recursos por segundo
@@ -444,7 +472,7 @@ const funcionAllEcoUpgrades = ()=>{
         }
 
         function headderResize(){
-            document.querySelector(`.mainContent`).setAttribute(`style`, `margin-top: ${document.querySelector(`.headder`).clientHeight}px;`)
+            document.querySelector(`.mainContent`).setAttribute(`style`, `margin-top: ${document.querySelector(`.headder`).clientHeight-1}px;`)
         }
 
 
